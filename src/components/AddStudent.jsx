@@ -5,6 +5,8 @@ import DesiredSkills from "./DesiredSkills.jsx";
 
 const AddStudent = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [updatedPredefinedSkills, setUpdatedPredefinedSkills] = useState({});
+  const [updatedDesiredSkills, setUpdatedDesiredSkills] = useState([]);
 
   const { register, handleSubmit, errors, reset, watch } = useForm();
 
@@ -72,6 +74,10 @@ const AddStudent = () => {
     console.log(data);
   };
 
+  const predefinedSkillsUpdate = (receivedSkills) => {
+    console.log(receivedSkills);
+  };
+
   return (
     <div className="add_student">
       <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +116,13 @@ const AddStudent = () => {
             <h3>Predefined Skills</h3>
             <ul className="predefined_skills_ul">
               {predefinedSkills.map((skill) => (
-                <PredefinedSkills key={`${skill.skill}`} skill={skill} />
+                <PredefinedSkills
+                  key={`${skill.skill}`}
+                  skill={skill}
+                  predefinedSkillsUpdate={(skills) =>
+                    predefinedSkillsUpdate(skills)
+                  }
+                />
               ))}
             </ul>
           </div>
