@@ -105,18 +105,28 @@ body {
 .predefined_skills,
 .desired_skills {
   padding: 1rem;
-  width: 40%;
   display: inline-block;
+  margin-left: 2rem;
 }
 
 .predefined_skills {
   /* border: 2px solid blue; */
-  margin-left: 4rem;
+  width: 50%;
+}
+
+.predefined_skills > h3,
+.desired_skills > h3 {
+  padding-left: 3rem;
 }
 
 .desired_skills {
   /* border: 2px solid red; */
-  margin-left: 4rem;
+  width: 40%;
+}
+
+.predefined_skills_ul,
+.desired_skills_ul {
+  list-style-type: none;
 }
 
 .skills_label {

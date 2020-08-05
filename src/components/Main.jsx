@@ -22,12 +22,32 @@ const Main = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Column 1",
-        accessor: "col1",
+        Header: "First Name",
+        accessor: "firstName",
       },
       {
-        Header: "Column 2",
-        accessor: "col2",
+        Header: "Last Name",
+        accessor: "lastName",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+      {
+        Header: "Predefined Skills",
+        accessor: "predefinedSkills",
+      },
+      {
+        Header: "Desired Skills",
+        accessor: "desiredSkills",
+      },
+      {
+        Header: "",
+        accessor: "editStudent",
+      },
+      {
+        Header: "",
+        accessor: "deleteStudent",
       },
     ],
     []
