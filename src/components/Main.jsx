@@ -5,17 +5,16 @@ const Main = () => {
   const data = React.useMemo(
     () => [
       {
-        col1: "Hello",
-        col2: "World",
+        firstName: "Harry",
+        lastName: "Potter",
+        email: "Harry@Hogwarts.com",
+        predefinedSkills: "Quidditch: level 3",
+        desiredSkills: "Potion Making",
       },
-      {
-        col1: "How",
-        col2: "Are",
-      },
-      {
-        col1: "You",
-        col2: "Today?",
-      },
+      {},
+      {},
+      {},
+      {},
     ],
     []
   );
@@ -41,19 +40,14 @@ const Main = () => {
         Header: "Desired Skills",
         accessor: "desiredSkills",
       },
-      {
-        Header: "",
-        accessor: "editStudent",
-      },
-      {
-        Header: "",
-        accessor: "deleteStudent",
-      },
     ],
     []
   );
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({
+    columns,
+    data,
+  });
 
   const {
     getTableProps,
@@ -61,24 +55,25 @@ const Main = () => {
     headerGroups,
     rows,
     prepareRow,
+    selectedFlatRows,
   } = tableInstance;
 
+  const handleEdit = (data) => {
+    console.log(data);
+  };
+
+  const handleRemove = (data) => {
+    console.log(data);
+  };
+
   return (
-    <div>
-      <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+    <div style={{ border: "2px solid black" }}>
+      <table {...getTableProps()} className="student_table">
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  style={{
-                    borderBottom: "solid 3px red",
-                    background: "aliceblue",
-                    color: "black",
-                    fontWeight: "bold",
-                  }}
-                >
+                <th {...column.getHeaderProps()} className="table_header">
                   {column.render("Header")}
                 </th>
               ))}
@@ -91,19 +86,25 @@ const Main = () => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
+                  console.log(cell);
                   return (
-                    <td
-                      {...cell.getCellProps()}
-                      style={{
-                        padding: "10px",
-                        border: "solid 1px gray",
-                        background: "papayawhip",
-                      }}
-                    >
+                    <td {...cell.getCellProps()} className="table_rows">
                       {cell.render("Cell")}
                     </td>
                   );
                 })}
+                <button
+                  className="student_table_button"
+                  onClick={(e) => handleEdit(e.target)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="student_table_button"
+                  onClick={(e) => handleRemove(e.target)}
+                >
+                  Delete
+                </button>
               </tr>
             );
           })}

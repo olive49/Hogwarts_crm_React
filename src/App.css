@@ -132,3 +132,25 @@ body {
 .skills_label {
   padding: 0 0.3rem 0 0.2rem;
 }
+
+.student_table {
+  margin: 2rem auto;
+  padding-top: 1rem;
+}
+
+.table_header,
+.table_rows {
+  border: 1px solid black;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.table_rows {
+  border: 2px solid black;
+  color: black;
+}
+
+.student_table_button {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}

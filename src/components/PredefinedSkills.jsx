@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 const PredefinedSkills = (props) => {
   const { skill } = props;
 
-  const [skills, setSkills] = useState([{}]);
+  const [skills, setSkills] = useState([]);
 
   const { register, watch } = useForm();
   const predefinedSkill = watch(skill.skill);
@@ -12,11 +12,13 @@ const PredefinedSkills = (props) => {
   const handleChange = (e) => {
     const skillName = e.target.id;
     const skillLevel = e.target.value;
-    setSkills((skills) => skills + { skill: skillName, level: skillLevel });
+    setSkills(
+      (skills) => skills + { skill: skillName, skill_level: skillLevel }
+    );
   };
 
   useEffect(() => {
-    console.log(skills);
+    console.log(JSON.stringify(skills));
     props.predefinedSkillsUpdate(skills);
   }, [skills]);
 
