@@ -1,0 +1,124 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(to right, #bfbfbf, lightgray);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: "Vollkorn", serif;
+}
+
+.nav_div {
+  width: 100%;
+  padding: 1rem 0;
+  background-color: #600100;
+}
+
+.nav_ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+}
+
+.nav_li {
+  color: #d8940a;
+  font-size: 1.3rem;
+  margin: 0 1.5rem;
+}
+
+.nav_link :hover {
+  color: white;
+  transition: 1.5s ease;
+}
+
+.admin_signup,
+.admin_login,
+.add_student {
+  width: 50%;
+  margin: 4rem auto;
+}
+
+.admin_signup_form,
+.admin_login_form,
+.add_student_form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.admin_signup_span,
+.admin_login_span,
+.add_student_span {
+  font-size: 1.2rem;
+  margin: 1rem 0 0.2rem 0;
+}
+
+.admin_signup_input,
+.admin_login_input,
+.add_student_input {
+  height: 3rem;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.admin_signup_button,
+.admin_login_button,
+.add_student_button {
+  border-radius: 5px;
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  border: 0;
+  font-family: "Vollkorn", serif;
+  background-color: #1e1c18;
+  color: #f3980a;
+  cursor: pointer;
+}
+
+.admin_signup_button,
+.admin_login_button {
+  margin-left: auto;
+}
+
+.add_student_button {
+  margin: 2rem 5rem;
+}
+
+.admin_signup_button:hover {
+  background-color: #2e711a;
+  color: #c4c4c4;
+  transition: 2s ease;
+}
+
+.error_message {
+  color: #600100;
+}
+
+.all_skills {
+  /* border: 2px solid black; */
+  margin-top: 1rem;
+}
+
+.predefined_skills,
+.desired_skills {
+  padding: 1rem;
+  width: 40%;
+  display: inline-block;
+}
+
+.predefined_skills {
+  /* border: 2px solid blue; */
+  margin-left: 4rem;
+}
+
+.desired_skills {
+  /* border: 2px solid red; */
+  margin-left: 4rem;
+}
+
+.skills_label {
+  padding: 0 0.3rem 0 0.2rem;
+}
