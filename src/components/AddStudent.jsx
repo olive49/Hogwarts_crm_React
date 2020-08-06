@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import PredefinedSkills from "./PredefinedSkills.jsx";
-import DesiredSkills from "./DesiredSkills.jsx";
+import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
+import DesiredSkillItem from "./DesiredSkillItem.jsx";
 
 const AddStudent = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [updatedPredefinedSkills, setUpdatedPredefinedSkills] = useState({});
+  const [updatedPredefinedSkills, setUpdatedPredefinedSkills] = useState([]);
   const [updatedDesiredSkills, setUpdatedDesiredSkills] = useState([]);
 
   const { register, handleSubmit, errors, reset, watch } = useForm();
@@ -75,7 +75,20 @@ const AddStudent = () => {
   };
 
   const predefinedSkillsUpdate = (receivedSkills) => {
-    console.log(receivedSkills);
+    const skillName = receivedSkills.skill;
+    const skillLevel = receivedSkills.level;
+    setUpdatedPredefinedSkills((updatedPredefinedSkills) => [
+      ...updatedPredefinedSkills,
+      { skill: skillName, level: skillLevel },
+    ]);
+  };
+
+  const desiredSkillsUpdate = (receivedSkills) => {
+    console.log(updatedDesiredSkills);
+    setUpdatedDesiredSkills((updatedDesiredSkills) => [
+      ...updatedDesiredSkills,
+      receivedSkills,
+    ]);
   };
 
   return (
@@ -116,7 +129,7 @@ const AddStudent = () => {
             <h3>Predefined Skills</h3>
             <ul className="predefined_skills_ul">
               {predefinedSkills.map((skill) => (
-                <PredefinedSkills
+                <PredefinedSkillItem
                   key={`${skill.skill}`}
                   skill={skill}
                   predefinedSkillsUpdate={(skills) =>
@@ -130,7 +143,11 @@ const AddStudent = () => {
             <h3>Desired Skills</h3>
             <ul className="desired_skills_ul">
               {desiredSkills.map((skill) => (
-                <DesiredSkills key={`${skill.skill}`} skill={skill} />
+                <DesiredSkillItem
+                  key={`${skill.skill}`}
+                  skill={skill}
+                  desiredSkillsUpdate={(skill) => desiredSkillsUpdate(skill)}
+                />
               ))}
             </ul>
           </div>
