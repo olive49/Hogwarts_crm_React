@@ -12,14 +12,14 @@ const PredefinedSkills = (props) => {
   const handleChange = (e) => {
     const skillName = e.target.id;
     const skillLevel = e.target.value;
-    setSkills(
-      (skills) => skills + { skill: skillName, skill_level: skillLevel }
+    setSkills((skills) =>
+      skills.concat({ skill: skillName, level: skillLevel })
     );
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(skills));
-    props.predefinedSkillsUpdate(skills);
+    console.log(skills);
+    // props.predefinedSkillsUpdate(skills);
   }, [skills]);
 
   return (
@@ -35,13 +35,14 @@ const PredefinedSkills = (props) => {
       </label>
       {predefinedSkill && (
         <span>
-          <label htmlFor={skill.rating}>Rating</label>
+          <label htmlFor={skill.rating}></label>
           <select
             id={skill.name}
             name={skill.rating}
             ref={register}
             onChange={(e) => handleChange(e)}
           >
+            <option>Level</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
