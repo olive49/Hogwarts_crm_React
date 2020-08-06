@@ -134,24 +134,18 @@ body {
   padding: 0 0.3rem 0 0.2rem;
 }
 
+.student_table_container {
+  border: 4rem solid black;
+}
+
 .student_table {
-  margin: 2rem auto;
-  padding-top: 1rem;
+  margin: 0 auto;
 }
 
-.table_header,
-.table_rows {
-  border: 1px solid black;
-  padding: 0 1rem;
+.input_style {
+  display: block;
+  height: 3rem;
+  width: 40.3rem;
   font-size: 1.2rem;
-}
-
-.table_rows {
-  border: 2px solid black;
-  color: black;
-}
-
-.student_table_button {
   padding: 0.5rem;
-  font-size: 1.2rem;
 }

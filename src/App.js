@@ -11,6 +11,7 @@ import AdminSignUp from "./components/AdminSignUp.jsx";
 import AdminLogin from "./components/AdminLogin.jsx";
 import AddStudent from "./components/AddStudent.jsx";
 import Main from "./components/Main.jsx";
+import EditStudent from "./components/EditStudent.jsx";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
         </Route>
         <Route path="/main" exact>
           <Main />
+        </Route>
+        <Route path="/edit_student" exact>
+          <EditStudent />
         </Route>
       </Switch>
     </Router>

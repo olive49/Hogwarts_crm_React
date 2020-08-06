@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Email from "./Email.jsx";
 
 const AdminSignUp = () => {
   const { register, handleSubmit, errors, reset } = useForm();
@@ -29,16 +30,7 @@ const AdminSignUp = () => {
         {errors.fullName && errors.fullName.type === "required" && (
           <span className="error_message">This field is required</span>
         )}
-        <span className="admin_signup_span">Email</span>
-        <input
-          type="email"
-          name="email"
-          className="admin_signup_input"
-          ref={register({ required: true })}
-        />
-        {errors.email && errors.email.type === "required" && (
-          <span className="error_message">This field is required</span>
-        )}
+        <Email register={register} errors={errors} />
         <span className="admin_signup_span">Password</span>
         <input
           type="password"

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Email from "./Email.jsx";
 
 const AdminLogin = () => {
   const { register, handleSubmit, errors, reset } = useForm();
@@ -12,16 +13,8 @@ const AdminLogin = () => {
   return (
     <div className="admin_login">
       <form className="admin_login_form" onSubmit={handleSubmit(onSubmit)}>
-        <span className="admin_login_span">Email</span>
-        <input
-          type="email"
-          name="email"
-          className="admin_login_input"
-          ref={register({ required: true })}
-        />
-        {errors.email && errors.email.type === "required" && (
-          <span className="error_message">This field is required</span>
-        )}
+        <Email register={register} errors={errors} />
+
         <span className="admin_login_span">Password</span>
         <input
           type="password"

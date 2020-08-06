@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const PredefinedSkillItem = (props) => {
-  const { skill } = props;
+  const { skill, register, watch } = props;
 
-  const { register, watch } = useForm();
   const predefinedSkill = watch(skill.skill);
-
-  const handleChange = (e) => {
-    const skillName = e.target.id;
-    const skillLevel = e.target.value;
-    props.predefinedSkillsUpdate({ skill: skillName, level: skillLevel });
-  };
 
   return (
     <li>
@@ -27,12 +20,7 @@ const PredefinedSkillItem = (props) => {
       {predefinedSkill && (
         <span>
           <label htmlFor={skill.rating}></label>
-          <select
-            id={skill.name}
-            name={skill.rating}
-            ref={register}
-            onChange={(e) => handleChange(e)}
-          >
+          <select id={skill.name} name={skill.rating} ref={register}>
             <option>Level</option>
             <option value="1">1</option>
             <option value="2">2</option>

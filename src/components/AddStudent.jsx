@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
+import FirstName from "./FirstName.jsx";
+import LastName from "./LastName.jsx";
+import Email from "./Email.jsx";
 
 const AddStudent = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [updatedPredefinedSkills, setUpdatedPredefinedSkills] = useState([]);
-  const [updatedDesiredSkills, setUpdatedDesiredSkills] = useState([]);
-
   const { register, handleSubmit, errors, reset, watch } = useForm();
 
   const predefinedSkills = [
@@ -74,56 +73,12 @@ const AddStudent = () => {
     console.log(data);
   };
 
-  const predefinedSkillsUpdate = (receivedSkills) => {
-    const skillName = receivedSkills.skill;
-    const skillLevel = receivedSkills.level;
-    setUpdatedPredefinedSkills((updatedPredefinedSkills) => [
-      ...updatedPredefinedSkills,
-      { skill: skillName, level: skillLevel },
-    ]);
-  };
-
-  const desiredSkillsUpdate = (receivedSkills) => {
-    console.log(updatedDesiredSkills);
-    setUpdatedDesiredSkills((updatedDesiredSkills) => [
-      ...updatedDesiredSkills,
-      receivedSkills,
-    ]);
-  };
-
   return (
     <div className="add_student">
       <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
-        <span className="add_student_span">First Name</span>
-        <input
-          type="text"
-          name="firstName"
-          className="add_student_input"
-          ref={register({ required: true })}
-        />
-        {errors.firstName && errors.firstName.type === "required" && (
-          <span className="error_message">This field is required</span>
-        )}
-        <span className="add_student_span">Last Name</span>
-        <input
-          type="text"
-          name="lastName"
-          className="add_student_input"
-          ref={register({ required: true })}
-        />
-        {errors.lastName && errors.lastName.type === "required" && (
-          <span className="error_message">This field is required</span>
-        )}
-        <span className="add_student_span">Email</span>
-        <input
-          type="email"
-          name="email"
-          className="add_student_input"
-          ref={register({ required: true })}
-        />
-        {errors.email && errors.email.type === "required" && (
-          <span className="error_message">This field is required</span>
-        )}
+        <FirstName register={register} errors={errors} />
+        <LastName register={register} errors={errors} />
+        <Email register={register} errors={errors} />
         <div className="all_skills">
           <div className="predefined_skills">
             <h3>Predefined Skills</h3>
@@ -132,9 +87,8 @@ const AddStudent = () => {
                 <PredefinedSkillItem
                   key={`${skill.skill}`}
                   skill={skill}
-                  predefinedSkillsUpdate={(skills) =>
-                    predefinedSkillsUpdate(skills)
-                  }
+                  register={register}
+                  watch={watch}
                 />
               ))}
             </ul>
@@ -146,17 +100,13 @@ const AddStudent = () => {
                 <DesiredSkillItem
                   key={`${skill.skill}`}
                   skill={skill}
-                  desiredSkillsUpdate={(skill) => desiredSkillsUpdate(skill)}
+                  register={register}
                 />
               ))}
             </ul>
           </div>
         </div>
-        <button
-          className="add_student_button"
-          type="submit"
-          // disabled={loggedIn === false}
-        >
+        <button className="add_student_button" type="submit">
           Submit
         </button>
       </form>
