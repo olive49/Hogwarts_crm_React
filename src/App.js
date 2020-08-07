@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import AdminSignUp from "./components/AdminSignUp.jsx";
 import AdminLogin from "./components/AdminLogin.jsx";
@@ -75,11 +70,53 @@ const desiredSkills = [
   },
 ];
 
+const mockStudent = {
+  firstName: "Harry",
+  lastName: "Potter",
+  email: "harry@hogwarts.com",
+  predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
+  desiredSkills: "Potionmaking",
+};
+
 const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [studentsArray, setStudentsArray] = useState([]);
+  const [rows, setRows] = useState([
+    {
+      firstName: "Harry",
+      lastName: "Potter",
+      email: "harry@hogwarts.com",
+      predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
+      desiredSkills: "Potionmaking",
+    },
+    {
+      firstName: "Hermione",
+      lastName: "Granger",
+      email: "hermione@hogwarts.com",
+      predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
+      desiredSkills: "Quidditch",
+    },
+    {
+      firstName: "Ron",
+      lastName: "Weasley",
+      email: "ron@hogwarts.com",
+      predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
+      desiredSkills: "Quidditch",
+    },
+  ]);
 
   const handleCurrentStudent = (student) => {
+    setCurrentStudent(student);
+  };
+
+  const handleDeleteStudent = (student) => {
+    console.log(student.email);
+    const newRows = rows.filter((a) => a.email != student.email);
+    console.log(newRows);
+    setRows(newRows);
+  };
+
+  const handleStudentClick = (student) => {
     setCurrentStudent(student);
   };
 
@@ -109,6 +146,9 @@ const App = () => {
           <Route path="/main" exact>
             <Main
               onCurrentStudent={(student) => handleCurrentStudent(student)}
+              onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
+              onStudentClick={(student) => handleStudentClick(student)}
+              rows={rows}
             />
           </Route>
           <Route path="/edit_student" exact>
@@ -118,7 +158,7 @@ const App = () => {
             />
           </Route>
           <Route path="/student/:email" exact>
-            <StudentData />
+            <StudentData currentStudent={mockStudent} />
           </Route>
         </Switch>
       </Router>

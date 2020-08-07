@@ -45,7 +45,7 @@ const PredefinedSkillItem = (props) => {
             id={skill.name}
             name={skill.rating}
             ref={register}
-            defaultValue={mockStudent.predefinedSkills.skillLevel}
+            def={mockStudent.predefinedSkills.skillLevel}
           >
             <option>Level</option>
             <option value="1">1</option>
