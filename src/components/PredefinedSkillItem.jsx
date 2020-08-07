@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Link, withRouter, useLocation } from "react-router-dom";
 
 const PredefinedSkillItem = (props) => {
-  const { skill, register, watch } = props;
+  const { skill, register, watch, mockStudent } = props;
+  const location = useLocation();
 
   const predefinedSkill = watch(skill.skill);
 
@@ -13,14 +15,38 @@ const PredefinedSkillItem = (props) => {
         id={skill.skill}
         name={skill.skill}
         ref={register}
+        defaultChecked={
+          location.pathname == "/edit_student"
+            ? mockStudent.predefinedSkills.skillName
+            : ""
+        }
       />
       <label htmlFor={skill.skill} className="skills_label">
         {skill.name}
       </label>
-      {predefinedSkill && (
+      {location.pathname == "/add_student" ? (
+        predefinedSkill && (
+          <span>
+            <label htmlFor={skill.rating}></label>
+            <select id={skill.name} name={skill.rating} ref={register}>
+              <option>Level</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </span>
+        )
+      ) : (
         <span>
           <label htmlFor={skill.rating}></label>
-          <select id={skill.name} name={skill.rating} ref={register}>
+          <select
+            id={skill.name}
+            name={skill.rating}
+            ref={register}
+            defaultValue={mockStudent.predefinedSkills.skillLevel}
+          >
             <option>Level</option>
             <option value="1">1</option>
             <option value="2">2</option>

@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { Link, withRouter, useLocation } from "react-router-dom";
 
 const FirstName = (props) => {
-  const { register, errors } = props;
+  const { register, errors, mockStudent } = props;
+  const location = useLocation();
+
   return (
     <div>
       {" "}
@@ -11,6 +14,9 @@ const FirstName = (props) => {
         name="firstName"
         className="input_style"
         ref={register({ required: true })}
+        defaultValue={
+          location.pathname == "/edit_student" ? mockStudent.firstName : ""
+        }
       />
       {errors.firstName && errors.firstName.type === "required" && (
         <span className="error_message">This field is required</span>

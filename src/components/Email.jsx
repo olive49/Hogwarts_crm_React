@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Email = (props) => {
-  const { register, errors } = props;
+  const { register, errors, mockStudent } = props;
+  const location = useLocation();
 
   return (
     <div style={{ height: "6rem", marginTop: "1rem", marginBottom: "-0.8rem" }}>
@@ -11,6 +13,9 @@ const Email = (props) => {
         name="email"
         className="input_style"
         ref={register({ required: true })}
+        defaultValue={
+          location.pathname == "/edit_student" ? mockStudent.email : ""
+        }
       />
       {errors.email && errors.email.type === "required" && (
         <span className="error_message">This field is required</span>
