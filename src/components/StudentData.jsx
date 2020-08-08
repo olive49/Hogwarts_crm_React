@@ -14,6 +14,8 @@ const StudentData = (props) => {
   });
   const myContext = useContext(StudentContext);
 
+  console.log(myContext.currentStudent);
+
   const chart = () => {
     setChartData({
       labels: skillName,
@@ -48,18 +50,7 @@ const StudentData = (props) => {
 
   const classes = useStyles();
 
-  const mockStudent = {
-    firstName: "Harry",
-    lastName: "Potter",
-    email: "harry@hogwarts.com",
-    predefinedSkills: [
-      { skillName: "Quidditch", skillLevel: 3 },
-      { skillName: "Magic", skillLevel: 2 },
-    ],
-    desiredSkills: "Potionmaking",
-  };
-
-  const fullName = mockStudent.firstName + " " + mockStudent.lastName;
+  const fullName = currentStudent.firstName + " " + currentStudent.lastName;
 
   return (
     <div style={{ width: "40%", margin: "4rem auto" }}>
@@ -69,15 +60,14 @@ const StudentData = (props) => {
             {fullName}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            {mockStudent.email}
+            {currentStudent.email}
           </Typography>
           <Typography>Skills:</Typography>
-          {mockStudent.predefinedSkills.map((skills) => (
-            <Typography>
-              Predefined: {skills.skillName} level: {skills.skillLevel}
-            </Typography>
-          ))}
-          <Typography>Desired: {mockStudent.desiredSkills}</Typography>
+          <Typography>
+            Predefined: {currentStudent.predefinedSkills.skillName} level:{" "}
+            {currentStudent.predefinedSkills.skillLevel}
+          </Typography>
+          <Typography>Desired: {currentStudent.desiredSkills}</Typography>
         </CardContent>
       </Card>
       <h3 className="pie_chart_title">Desired Skills of All Students</h3>

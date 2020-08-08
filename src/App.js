@@ -158,7 +158,8 @@ const App = () => {
           </Route>
           <Route path="/student/:email" exact>
             <StudentData
-              currentStudent={mockStudent}
+              // currentStudent={mockStudent}
+              currentStudent={currentStudent}
               desiredSkills={desiredSkills}
             />
           </Route>
