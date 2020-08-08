@@ -143,6 +143,7 @@ const App = () => {
           </Route>
           <Route path="/main" exact>
             <Main
+              desiredSkills={desiredSkills}
               onCurrentStudent={(student) => handleCurrentStudent(student)}
               onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
               onStudentClick={(student) => handleStudentClick(student)}
