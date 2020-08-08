@@ -11,9 +11,6 @@ const DesiredSkillItem = (props) => {
         name="desiredSkill"
         ref={register}
       />
-      {/* {errors.desiredSkill && errors.desiredSkill.type === "required" && (
-        <span className="error_message">This field is required</span>
-      )} */}
       <label htmlFor={skill.skill} className="skills_label">
         {skill.name}
       </label>

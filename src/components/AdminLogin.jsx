@@ -14,7 +14,6 @@ const AdminLogin = () => {
     <div className="admin_login">
       <form className="admin_login_form" onSubmit={handleSubmit(onSubmit)}>
         <Email register={register} errors={errors} />
-
         <span className="admin_login_span">Password</span>
         <input
           type="password"

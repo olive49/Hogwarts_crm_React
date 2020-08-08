@@ -14,15 +14,12 @@ const PredefinedSkillItem = (props) => {
         id={skill.skill}
         name={skill.skill}
         ref={register}
-        defaultChecked={
-          location.pathname == "/edit_student"
-            ? mockStudent.predefinedSkills.skillName
-            : ""
-        }
+        // defaultChecked={
+        //   location.pathname == "/edit_student"
+        //     ? mockStudent.predefinedSkills.skillName
+        //     : ""
+        // }
       />
-      {/* {errors.skill.skill && errors.skill.type === "required" && (
-        <span className="error_message">This field is required</span>
-      )} */}
       <label htmlFor={skill.skill} className="skills_label">
         {skill.name}
       </label>
@@ -47,12 +44,7 @@ const PredefinedSkillItem = (props) => {
       ) : (
         <span>
           <label htmlFor={skill.rating}></label>
-          <select
-            id={skill.name}
-            name={skill.rating}
-            ref={register}
-            def={mockStudent.predefinedSkills.skillLevel}
-          >
+          <select id={skill.name} name={skill.rating} ref={register}>
             <option>Level</option>
             <option value="1">1</option>
             <option value="2">2</option>

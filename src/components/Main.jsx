@@ -10,6 +10,9 @@ import StudentContext from "../StudentContext.js";
 import Modal from "react-modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
 
 const header = [
   "First Name",
@@ -20,10 +23,34 @@ const header = [
   "Actions",
 ];
 
+const customStyles = {
+  content: {
+    top: "30%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+const buttonDivStyles = {
+  display: "flex",
+  justifyContent: "center",
+};
+
+const buttonStyles = {
+  margin: "1rem",
+  padding: "0.5rem",
+  border: 0,
+  backgroundColor: "white",
+};
+
 const Main = (props) => {
   const { rows } = props;
   const [modalIsOpen, setIsOpen] = useState(false);
   // const myContext = useContext(StudentContext);
+
+  Modal.setAppElement();
 
   const openModal = () => {
     setIsOpen(true);
@@ -70,6 +97,7 @@ const Main = (props) => {
                 scope="row"
                 component={Link}
                 to={`/student/${row.email}`}
+                style={{ textDecoration: "none" }}
                 onClick={() => props.onStudentClick(row)}
               >
                 {row.firstName}
@@ -77,6 +105,7 @@ const Main = (props) => {
               <TableCell
                 component={Link}
                 to={`/student/${row.email}`}
+                style={{ textDecoration: "none" }}
                 onClick={() => props.onStudentClick(row)}
               >
                 {row.lastName}
@@ -84,6 +113,7 @@ const Main = (props) => {
               <TableCell
                 component={Link}
                 to={`/student/${row.email}`}
+                style={{ textDecoration: "none" }}
                 onClick={() => props.onStudentClick(row)}
               >
                 {row.email}
@@ -91,6 +121,7 @@ const Main = (props) => {
               <TableCell
                 component={Link}
                 to={`/student/${row.email}`}
+                style={{ textDecoration: "none" }}
                 onClick={() => props.onStudentClick(row)}
               >
                 {row.predefinedSkills.skillName} Level:
@@ -99,29 +130,52 @@ const Main = (props) => {
               <TableCell
                 component={Link}
                 to={`/student/${row.email}`}
+                style={{ textDecoration: "none" }}
                 onClick={() => props.onStudentClick(row)}
               >
                 {row.desiredSkills}
               </TableCell>
               <TableCell>
-                <button onClick={(e) => handleEdit(row, e)}>
-                  <Link to="/edit_student">
+                <button
+                  className="action_button"
+                  onClick={(e) => handleEdit(row, e)}
+                >
+                  <Link to="/edit_student" style={{ color: "black" }}>
                     <EditIcon />
                   </Link>
                 </button>
-                <button onClick={(e) => handleDelete(row, e)}>
+                <button
+                  className="action_button"
+                  id="delete_button"
+                  onClick={(e) => handleDelete(row, e)}
+                >
                   <DeleteIcon />
+                </button>
+                <button
+                  className="action_button"
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  <Link to={`/student/${row.email}`} style={{ color: "black" }}>
+                    <VisibilityIcon />
+                  </Link>
                 </button>
                 <Modal
                   isOpen={modalIsOpen}
-                  // onAfterOpen={}
-                  // onRequestClose={}
-                  // style={}
+                  style={customStyles}
                   contentLabel="Modal"
                 >
                   <h2>Are you sure you want to delete this student?</h2>
-                  <button onClick={() => deleteStudent(row)}>yes</button>
-                  <button onClick={() => closeModal()}>no</button>
+                  <div style={buttonDivStyles}>
+                    <button
+                      style={buttonStyles}
+                      onClick={() => deleteStudent(row)}
+                    >
+                      <DoneIcon />
+                    </button>
+                    <button style={buttonStyles} onClick={() => closeModal()}>
+                      <ClearIcon />
+                    </button>
+                  </div>
                 </Modal>
               </TableCell>
             </TableRow>

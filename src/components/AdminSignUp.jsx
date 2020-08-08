@@ -11,7 +11,6 @@ const AdminSignUp = () => {
     } else {
       console.log(data);
       alert(`Welcome to Hogwarts, ${data.fullName}`);
-      localStorage.setItem(data);
       e.target.reset();
       return true;
     }
