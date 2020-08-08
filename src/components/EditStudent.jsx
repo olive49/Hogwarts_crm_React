@@ -8,10 +8,9 @@ import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import StudentContext from "../StudentContext.js";
 
 const EditStudent = (props) => {
-  const { predefinedSkills, desiredSkills } = props;
+  const { predefinedSkills, desiredSkills, mockStudent } = props;
 
   const { currentStudent } = useContext(StudentContext);
-  console.log(currentStudent);
 
   const { register, handleSubmit, errors, reset, watch } = useForm();
 
@@ -26,17 +25,17 @@ const EditStudent = (props) => {
           <FirstName
             register={register}
             errors={errors}
-            mockStudent={currentStudent}
+            mockStudent={mockStudent}
           />
           <LastName
             register={register}
             errors={errors}
-            mockStudent={currentStudent}
+            mockStudent={mockStudent}
           />
           <Email
             register={register}
             errors={errors}
-            mockStudent={currentStudent}
+            mockStudent={mockStudent}
           />
           <div className="all_skills">
             <div className="predefined_skills">
@@ -48,7 +47,7 @@ const EditStudent = (props) => {
                     skill={skill}
                     register={register}
                     watch={watch}
-                    mockStudent={currentStudent}
+                    mockStudent={mockStudent}
                   />
                 ))}
               </ul>
@@ -61,7 +60,7 @@ const EditStudent = (props) => {
                     key={`${skill.skill}`}
                     skill={skill}
                     register={register}
-                    mockStudent={currentStudent}
+                    mockStudent={mockStudent}
                   />
                 ))}
               </ul>

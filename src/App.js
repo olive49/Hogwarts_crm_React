@@ -155,6 +155,7 @@ const App = () => {
             <EditStudent
               predefinedSkills={predefinedSkills}
               desiredSkills={desiredSkills}
+              mockStudent={mockStudent}
             />
           </Route>
           <Route path="/student/:email" exact>

@@ -13,6 +13,14 @@ const AddStudent = (props) => {
 
   const onSubmit = (data) => {
     onAddStudent(data);
+    console.log(data);
+    const fullName = data.firstName + " " + data.lastName;
+    alert(`${fullName} successfully added!`);
+    reset({ defaultValues });
+  };
+  const defaultValues = {
+    select: "",
+    input: "",
   };
 
   return (
@@ -31,6 +39,7 @@ const AddStudent = (props) => {
                   skill={skill}
                   register={register}
                   watch={watch}
+                  errors={errors}
                 />
               ))}
             </ul>
@@ -43,6 +52,7 @@ const AddStudent = (props) => {
                   key={`${skill.skill}`}
                   skill={skill}
                   register={register}
+                  errors={errors}
                 />
               ))}
             </ul>
