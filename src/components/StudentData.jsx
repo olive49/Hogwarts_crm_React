@@ -2,14 +2,38 @@ import React, { useState, useEffect, useContext } from "react";
 import StudentContext from "../StudentContext.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { Pie } from "react-chartjs-2";
 
 const StudentData = (props) => {
-  console.log(props);
+  const { currentStudent, desiredSkills } = props;
+  const [chartData, setChartData] = useState({});
+  const skillName = desiredSkills.map((skill) => {
+    return skill.name;
+  });
   const myContext = useContext(StudentContext);
+
+  const chart = () => {
+    setChartData({
+      labels: skillName,
+      options: {
+        fontSize: "1.5rem",
+        bodyFontSize: "1.5rem",
+      },
+      datasets: [
+        {
+          label: "desiredSkills",
+          data: [32, 45, 12, 76, 69, 10],
+          backgroundColor: ["pink", "red", "green", "blue", "yellow", "orange"],
+        },
+      ],
+    });
+  };
+
+  useEffect(() => {
+    chart();
+  }, []);
 
   const useStyles = makeStyles({
     root: {
@@ -17,24 +41,12 @@ const StudentData = (props) => {
       minHeight: 200,
       textAlign: "center",
     },
-    bullet: {
-      display: "inline-block",
-      margin: "0 2px",
-      transform: "scale(0.8)",
-    },
-    title: {
-      fontSize: 14,
-    },
     pos: {
       marginBottom: 12,
     },
   });
 
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
-  //   console.log(myContext.currentStudent);
-  //   console.log(myContext.currentStudent.firstName);
 
   const mockStudent = {
     firstName: "Harry",
@@ -44,7 +56,7 @@ const StudentData = (props) => {
       { skillName: "Quidditch", skillLevel: 3 },
       { skillName: "Magic", skillLevel: 2 },
     ],
-    desiredSkills: "Potionmaking, Basketball",
+    desiredSkills: "Potionmaking",
   };
 
   const fullName = mockStudent.firstName + " " + mockStudent.lastName;
@@ -68,6 +80,8 @@ const StudentData = (props) => {
           <Typography>Desired: {mockStudent.desiredSkills}</Typography>
         </CardContent>
       </Card>
+      <h3 className="pie_chart_title">Desired Skills of All Students</h3>
+      <Pie data={chartData} />
     </div>
   );
 };
