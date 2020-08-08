@@ -13,7 +13,6 @@ const AddStudent = (props) => {
 
   const onSubmit = (data) => {
     onAddStudent(data);
-    console.log(data);
     const fullName = data.firstName + " " + data.lastName;
     alert(`${fullName} successfully added!`);
     reset({ defaultValues });
