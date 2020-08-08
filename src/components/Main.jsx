@@ -48,6 +48,7 @@ const buttonStyles = {
 const Main = (props) => {
   const { rows } = props;
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [student, setStudent] = useState(null);
   // const myContext = useContext(StudentContext);
 
   Modal.setAppElement();
@@ -60,9 +61,9 @@ const Main = (props) => {
     setIsOpen(false);
   };
 
-  const deleteStudent = (row) => {
+  const deleteStudent = () => {
     setIsOpen(false);
-    props.onDeleteCurrentStudent(row);
+    props.onDeleteCurrentStudent(student);
   };
 
   const handleEdit = (row, e) => {
@@ -73,6 +74,7 @@ const Main = (props) => {
   const handleDelete = (row, e) => {
     e.preventDefault();
     console.log(row);
+    setStudent(row);
     openModal();
   };
 
@@ -168,7 +170,7 @@ const Main = (props) => {
                   <div style={buttonDivStyles}>
                     <button
                       style={buttonStyles}
-                      onClick={() => deleteStudent(row)}
+                      onClick={() => deleteStudent()}
                     >
                       <DoneIcon />
                     </button>

@@ -110,7 +110,9 @@ const App = () => {
   };
 
   const handleDeleteStudent = (student) => {
+    console.log(student);
     const newRows = rows.filter((a) => a.email != student.email);
+    console.log(newRows);
     setRows(newRows);
   };
 
