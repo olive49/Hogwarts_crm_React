@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
@@ -9,6 +9,7 @@ import Main from "./components/Main.jsx";
 import EditStudent from "./components/EditStudent.jsx";
 import StudentData from "./components/StudentData.jsx";
 import StudentContext from "./StudentContext.js";
+import axios from "axios";
 
 const predefinedSkills = [
   {
@@ -78,41 +79,51 @@ const mockStudent = {
   desiredSkills: "Potionmaking",
 };
 
+const mockData = [
+  {
+    firstName: "Harry",
+    lastName: "Potter",
+    email: "harry@hogwarts.com",
+    predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
+    desiredSkills: "Potionmaking",
+  },
+  {
+    firstName: "Hermione",
+    lastName: "Granger",
+    email: "hermione@hogwarts.com",
+    predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
+    desiredSkills: "Quidditch",
+  },
+  {
+    firstName: "Ron",
+    lastName: "Weasley",
+    email: "ron@hogwarts.com",
+    predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
+    desiredSkills: "Quidditch",
+  },
+];
 const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [studentsArray, setStudentsArray] = useState([]);
-  const [rows, setRows] = useState([
-    {
-      firstName: "Harry",
-      lastName: "Potter",
-      email: "harry@hogwarts.com",
-      predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
-      desiredSkills: "Potionmaking",
-    },
-    {
-      firstName: "Hermione",
-      lastName: "Granger",
-      email: "hermione@hogwarts.com",
-      predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
-      desiredSkills: "Quidditch",
-    },
-    {
-      firstName: "Ron",
-      lastName: "Weasley",
-      email: "ron@hogwarts.com",
-      predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
-      desiredSkills: "Quidditch",
-    },
-  ]);
+  const [rows, setRows] = useState(mockData);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleCurrentStudent = (student) => {
     setCurrentStudent(student);
   };
 
   const handleDeleteStudent = (student) => {
-    console.log(student);
     const newRows = rows.filter((a) => a.email != student.email);
-    console.log(newRows);
     setRows(newRows);
   };
 
@@ -159,7 +170,6 @@ const App = () => {
           </Route>
           <Route path="/student/:email" exact>
             <StudentData
-              // currentStudent={mockStudent}
               currentStudent={currentStudent}
               desiredSkills={desiredSkills}
             />

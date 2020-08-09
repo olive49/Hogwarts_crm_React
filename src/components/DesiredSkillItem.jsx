@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
-const DesiredSkillItem = (props) => {
-  const { skill, register, errors } = props;
+const DesiredSkillItem = ({ skill, register, errors, addDesired }) => {
+  const skillSelected = (e) => {
+    const chosenSkill = e.target.id;
+    e.target.checked && addDesired(chosenSkill);
+  };
 
   return (
     <li>
       <input
         type="checkbox"
         id={skill.name}
-        name="desiredSkill"
-        ref={register}
+        name={skill.skill}
+        onChange={(e) => skillSelected(e)}
       />
       <label htmlFor={skill.skill} className="skills_label">
         {skill.name}

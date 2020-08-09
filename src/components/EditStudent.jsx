@@ -7,9 +7,7 @@ import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import StudentContext from "../StudentContext.js";
 
-const EditStudent = (props) => {
-  const { predefinedSkills, desiredSkills, mockStudent } = props;
-
+const EditStudent = ({ predefinedSkills, desiredSkills, mockStudent }) => {
   const { currentStudent } = useContext(StudentContext);
 
   const { register, handleSubmit, errors, reset, watch } = useForm();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Email from "./Email.jsx";
 
@@ -15,6 +15,10 @@ const AdminSignUp = () => {
       return true;
     }
   };
+
+  useEffect(() => {
+    fetch("/admin/signup").then((response) => console.log(response));
+  }, []);
 
   return (
     <div className="admin_signup">
@@ -35,14 +39,14 @@ const AdminSignUp = () => {
           type="password"
           name="password"
           className="admin_signup_input"
-          ref={register({ required: true, minLength: 6 })}
+          ref={register({ required: true, minLength: 8 })}
         />
         {errors.password && errors.password.type === "required" && (
           <span className="error_message">This field is required</span>
         )}
         {errors.password && errors.password.type === "minLength" && (
           <span className="error_message">
-            Password must be at least 6 characters
+            Password must be at least 8 characters
           </span>
         )}
         <span className="admin_signup_span">Confirm password</span>
@@ -52,19 +56,9 @@ const AdminSignUp = () => {
           className="admin_signup_input"
           ref={register({
             required: true,
-            minLength: 6,
+            minLength: 8,
           })}
         />
-        {errors.password_confirmed &&
-          errors.password_confirmed.type === "required" && (
-            <span className="error_message">This field is required</span>
-          )}
-        {errors.password_confirmed &&
-          errors.password_confirmed.type === "minLength" && (
-            <span className="error_message">
-              Password must be at least 6 characters
-            </span>
-          )}
         <button className="admin_signup_button" type="submit">
           Submit
         </button>

@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const PredefinedSkillItem = (props) => {
-  const { skill, register, watch, mockStudent, errors } = props;
+const PredefinedSkillItem = ({
+  skill,
+  register,
+  watch,
+  addPredefined,
+  mockStudent,
+  errors,
+}) => {
   const location = useLocation();
 
   const predefinedSkill = watch(skill.skill);
+
+  const skillLevelSelected = (e) => {
+    const chosenSkill = e.target.id;
+    const chosenSkillLevel = e.target.value;
+    addPredefined(chosenSkill, chosenSkillLevel);
+  };
+
+  const options = ["Level", 1, 2, 3, 4, 5];
+  const optionsMap = options.map((option) => (
+    <option value={option}>{option}</option>
+  ));
 
   return (
     <li>
       <input
         type="checkbox"
-        id={skill.skill}
+        id={skill.name}
         name={skill.skill}
         ref={register}
-        // defaultChecked={
-        //   location.pathname == "/edit_student"
-        //     ? mockStudent.predefinedSkills.skillName
-        //     : ""
-        // }
       />
-      <label htmlFor={skill.skill} className="skills_label">
+      <label htmlFor={skill.name} className="skills_label">
         {skill.name}
       </label>
       {location.pathname == "/add_student" ? (
@@ -29,15 +41,10 @@ const PredefinedSkillItem = (props) => {
             <label htmlFor={skill.rating}></label>
             <select
               id={skill.name}
-              name="predefinedSkillRating"
-              ref={register({ required: true })}
+              name={skill.rating}
+              onChange={(e) => skillLevelSelected(e)}
             >
-              <option>Level</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+              {optionsMap}
             </select>
           </span>
         )
@@ -45,12 +52,7 @@ const PredefinedSkillItem = (props) => {
         <span>
           <label htmlFor={skill.rating}></label>
           <select id={skill.name} name={skill.rating} ref={register}>
-            <option>Level</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            {optionsMap}
           </select>
         </span>
       )}

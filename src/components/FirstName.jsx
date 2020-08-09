@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter, useLocation } from "react-router-dom";
 
-const FirstName = (props) => {
-  const { register, errors, mockStudent } = props;
+const FirstName = ({ register, errors, mockStudent }) => {
   const location = useLocation();
 
   return (

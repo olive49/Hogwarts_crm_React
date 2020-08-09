@@ -5,9 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const StudentData = (props) => {
-  const { currentStudent, desiredSkills } = props;
-
+const StudentData = ({ currentStudent, desiredSkills }) => {
   const myContext = useContext(StudentContext);
 
   console.log(myContext.currentStudent);

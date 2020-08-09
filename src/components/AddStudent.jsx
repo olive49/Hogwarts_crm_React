@@ -5,18 +5,46 @@ import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import FirstName from "./FirstName.jsx";
 import LastName from "./LastName.jsx";
 import Email from "./Email.jsx";
+import axios from "axios";
 
-const AddStudent = (props) => {
-  const { predefinedSkills, desiredSkills, onAddStudent } = props;
-
+const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
   const { register, handleSubmit, errors, reset, watch } = useForm();
+  const [predefined, setPredefined] = useState([]);
+  const [desired, setDesired] = useState([]);
+
+  const addPredefinedSkills = (skill, level) => {
+    setPredefined((predefined) =>
+      predefined.concat({ skill: skill, level: level })
+    );
+  };
+
+  const addDesiredSkills = (skill) => {
+    setDesired((desired) => desired.concat(skill));
+  };
 
   const onSubmit = (data) => {
     onAddStudent(data);
-    const fullName = data.firstName + " " + data.lastName;
-    alert(`${fullName} successfully added!`);
+    console.log(data);
+    console.log(predefined);
+    console.log(desired);
     reset({ defaultValues });
+    axios
+      .post("/students/add", {
+        student_id: 12345678,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        existing_magic_skills: predefined,
+        desired_magic_skills: desired,
+      })
+      .then((response) => {
+        console.log(response).then(setPredefined()).then(setDesired());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   const defaultValues = {
     select: "",
     input: "",
@@ -34,11 +62,14 @@ const AddStudent = (props) => {
             <ul className="predefined_skills_ul">
               {predefinedSkills.map((skill) => (
                 <PredefinedSkillItem
-                  key={`${skill.skill}`}
+                  key={`${skill.skill}_${skill.name}`}
                   skill={skill}
                   register={register}
                   watch={watch}
                   errors={errors}
+                  addPredefined={(skill, level) =>
+                    addPredefinedSkills(skill, level)
+                  }
                 />
               ))}
             </ul>
@@ -48,10 +79,11 @@ const AddStudent = (props) => {
             <ul className="desired_skills_ul">
               {desiredSkills.map((skill) => (
                 <DesiredSkillItem
-                  key={`${skill.skill}`}
+                  key={`${skill.skill}_${skill.name}}`}
                   skill={skill}
                   register={register}
                   errors={errors}
+                  addDesired={(skill) => addDesiredSkills(skill)}
                 />
               ))}
             </ul>
