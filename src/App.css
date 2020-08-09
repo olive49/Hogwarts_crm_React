@@ -156,16 +156,6 @@ body {
   border-radius: 5px;
 }
 
-.pie_chart {
-  margin-top: 2rem;
-  margin-left: 8.5rem;
-}
-
-.pie_chart_title {
-  margin: 2rem 0 0 9.5rem;
-  font-size: 1.2rem;
-}
-
 .action_button {
   background-color: white;
   margin-right: 0.3rem;

@@ -62,6 +62,7 @@ const Main = (props) => {
       options: {
         fontSize: "1.5rem",
         bodyFontSize: "1.5rem",
+        response: true,
       },
       datasets: [
         {
@@ -222,9 +223,11 @@ const Main = (props) => {
           justifyContent: "center",
         }}
       >
-        <div style={{ height: "600px", width: "600px" }}>
-          <h3 className="pie_chart_title">Desired Skills of All Students</h3>
-          <Pie data={chartData} options={{ response: true }} />
+        <div style={{ height: "700px", width: "700px" }}>
+          <h3 style={{ textAlign: "center" }}>
+            Desired Skills of All Students
+          </h3>
+          <Pie data={chartData} />
         </div>
       </div>
     </div>
