@@ -42,6 +42,7 @@ const PredefinedSkillItem = ({
             <select
               id={skill.name}
               name={skill.rating}
+              ref={register}
               onChange={(e) => skillLevelSelected(e)}
             >
               {optionsMap}

@@ -38,7 +38,7 @@ const predefinedSkills = [
     rating: "predefined_metamorphmagi_rating",
   },
   {
-    skill: "desired_parseltongue",
+    skill: "predefined_parseltongue",
     name: "Parseltongue",
     rating: "predefined_parseltongue_rating",
   },
@@ -105,13 +105,15 @@ const mockData = [
 const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [studentsArray, setStudentsArray] = useState([]);
-  const [rows, setRows] = useState(mockData);
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/")
+      .get("http://127.0.0.1:5000/students")
       .then((response) => {
-        console.log(response.data);
+        const students_db = response.data;
+        console.log(students_db);
+        students_db.map((student) => setRows([student]));
       })
       .catch((error) => {
         console.error(error);
@@ -125,6 +127,14 @@ const App = () => {
   const handleDeleteStudent = (student) => {
     const newRows = rows.filter((a) => a.email != student.email);
     setRows(newRows);
+    axios
+      .delete(`http://127.0.0.1:5000/students/delete/${student.email}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleStudentClick = (student) => {

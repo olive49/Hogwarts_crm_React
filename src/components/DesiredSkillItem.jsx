@@ -12,6 +12,7 @@ const DesiredSkillItem = ({ skill, register, errors, addDesired }) => {
         type="checkbox"
         id={skill.name}
         name={skill.skill}
+        ref={register}
         onChange={(e) => skillSelected(e)}
       />
       <label htmlFor={skill.skill} className="skills_label">

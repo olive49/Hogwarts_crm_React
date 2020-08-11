@@ -13,6 +13,8 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
   const [desired, setDesired] = useState([]);
 
   const addPredefinedSkills = (skill, level) => {
+    console.log(skill, level);
+
     setPredefined((predefined) =>
       predefined.concat({ skill: skill, level: level })
     );
@@ -23,14 +25,8 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
   };
 
   const onSubmit = (data) => {
-    onAddStudent(data);
-    console.log(data);
-    console.log(predefined);
-    console.log(desired);
-    reset({ defaultValues });
     axios
       .post("/students/add", {
-        student_id: 12345678,
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
@@ -38,7 +34,10 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
         desired_magic_skills: desired,
       })
       .then((response) => {
-        console.log(response).then(setPredefined()).then(setDesired());
+        alert(response.data);
+        setPredefined([]);
+        setDesired([]);
+        reset({ defaultValues });
       })
       .catch((error) => {
         console.log(error);
