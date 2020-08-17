@@ -106,22 +106,51 @@ const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [studentsArray, setStudentsArray] = useState([]);
   const [rows, setRows] = useState([]);
+  const [desiredData, setDesiredData] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/students")
       .then((response) => {
         const students_db = response.data;
-        console.log(students_db);
-        students_db.map((student) => setRows([student]));
+        setRows(students_db);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
+  useEffect(() => {
+    axios.get("/students/desired_skills").then((response) => {
+      const desired_data = response.data;
+      setDesiredData(desired_data);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(rows);
+  });
+
   const handleCurrentStudent = (student) => {
     setCurrentStudent(student);
+  };
+
+  const handleEditStudent = (data, desired) => {
+    console.log(data, desired);
+    // axios
+    //   .post(`/students/edit/${currentStudent.email}`, {
+    //     first_name: data.firstName,
+    //     last_name: data.lastName,
+    //     email: data.email,
+    //     // existing_magic_skills: predefined,
+    //     // desired_magic_skills: desired,
+    //   })
+    //   .then((response) => {
+    //     alert(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const handleDeleteStudent = (student) => {
@@ -144,6 +173,7 @@ const App = () => {
   const addStudent = (student) => {
     setStudentsArray((studentsArray) => [student, ...studentsArray]);
   };
+
   return (
     <StudentContext.Provider value={{ currentStudent, studentsArray }}>
       <Router>
@@ -169,6 +199,7 @@ const App = () => {
               onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
               onStudentClick={(student) => handleStudentClick(student)}
               rows={rows}
+              desiredData={desiredData}
             />
           </Route>
           <Route path="/edit_student" exact>
@@ -176,6 +207,9 @@ const App = () => {
               predefinedSkills={predefinedSkills}
               desiredSkills={desiredSkills}
               mockStudent={mockStudent}
+              onEditStudent={(data, desired) =>
+                handleEditStudent(data, desired)
+              }
             />
           </Route>
           <Route path="/student/:email" exact>

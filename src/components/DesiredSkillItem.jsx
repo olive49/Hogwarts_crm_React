@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-const DesiredSkillItem = ({ skill, register, errors, addDesired }) => {
+const DesiredSkillItem = ({
+  skill,
+  register,
+  errors,
+  addDesired,
+  onAddDesired,
+}) => {
+  const location = useLocation();
+
   const skillSelected = (e) => {
     const chosenSkill = e.target.id;
-    e.target.checked && addDesired(chosenSkill);
+    e.target.checked && location.pathname == "/add_student"
+      ? addDesired(chosenSkill)
+      : onAddDesired(chosenSkill);
   };
 
   return (

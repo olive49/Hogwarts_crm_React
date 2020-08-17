@@ -25,6 +25,7 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
   };
 
   const onSubmit = (data) => {
+    onAddStudent(data);
     axios
       .post("/students/add", {
         first_name: data.firstName,

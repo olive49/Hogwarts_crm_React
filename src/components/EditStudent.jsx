@@ -7,13 +7,24 @@ import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import StudentContext from "../StudentContext.js";
 
-const EditStudent = ({ predefinedSkills, desiredSkills, mockStudent }) => {
+const EditStudent = ({
+  predefinedSkills,
+  desiredSkills,
+  mockStudent,
+  onEditStudent,
+}) => {
   const { currentStudent } = useContext(StudentContext);
+  const [predefined, setPredefined] = useState([]);
+  const [desired, setDesired] = useState([]);
 
   const { register, handleSubmit, errors, reset, watch } = useForm();
 
+  const addDesiredSkills = (skill) => {
+    setDesired((desired) => desired.concat(skill));
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
+    onEditStudent(data, desired);
   };
 
   return (
@@ -59,6 +70,7 @@ const EditStudent = ({ predefinedSkills, desiredSkills, mockStudent }) => {
                     skill={skill}
                     register={register}
                     mockStudent={mockStudent}
+                    onAddDesired={(skill) => addDesiredSkills(skill)}
                   />
                 ))}
               </ul>
