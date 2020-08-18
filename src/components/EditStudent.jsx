@@ -23,6 +23,14 @@ const EditStudent = ({
     setDesired((desired) => desired.concat(skill));
   };
 
+  const addPredefinedSkills = (skill, level) => {
+    console.log(skill, level);
+
+    setPredefined((predefined) =>
+      predefined.concat({ skill: skill, level: level })
+    );
+  };
+
   const onSubmit = (data) => {
     onEditStudent(data, desired);
   };
@@ -69,6 +77,9 @@ const EditStudent = ({
                     register={register}
                     watch={watch}
                     mockStudent={currentStudent}
+                    addPredefined={(skill, level) =>
+                      addPredefinedSkills(skill, level)
+                    }
                   />
                 ))}
               </ul>

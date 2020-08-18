@@ -75,8 +75,11 @@ const mockStudent = {
   firstName: "Harry",
   lastName: "Potter",
   email: "harry@hogwarts.com",
-  predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
-  desiredSkills: "Potionmaking",
+  predefinedSkills: [
+    { skillName: "Quidditch", skillLevel: 3 },
+    { skillName: "Spells", skillLevel: 3 },
+  ],
+  desiredSkills: ["Potionmaking"],
 };
 
 const mockData = [
@@ -84,7 +87,10 @@ const mockData = [
     firstName: "Harry",
     lastName: "Potter",
     email: "harry@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Quidditch", skillLevel: 3 }],
+    existing_magic_skills: [
+      { skillName: "Quidditch", skillLevel: 3 },
+      { skillName: "Spells", skillLevel: 3 },
+    ],
     desired_magic_skills: ["Potionmaking"],
   },
   {

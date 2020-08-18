@@ -51,14 +51,20 @@ const mockData = [
     first_name: "Harry",
     last_name: "Potter",
     email: "harry@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Quidditch", skillLevel: 3 }],
+    existing_magic_skills: [
+      { skillName: "Quidditch", skillLevel: 3 },
+      { skillName: "Spells", skillLevel: 3 },
+    ],
     desired_magic_skills: ["Potionmaking"],
   },
   {
     first_name: "Hermione",
     last_name: "Granger",
     email: "hermione@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Potion Making", skillLevel: 5 }],
+    existing_magic_skills: [
+      { skillName: "Potion Making", skillLevel: 5 },
+      { skillName: "Spells", skillLevel: 5 },
+    ],
     desired_magic_skills: ["Quidditch", "Parseltongue"],
   },
   {
@@ -150,102 +156,98 @@ const Main = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mockData.map((row) =>
-              row.existing_magic_skills.map((existing_skill) => (
-                <TableRow key={row.email}>
-                  <TableCell
-                    component={Link}
-                    to={`/student/${row.email}`}
-                    style={{ textDecoration: "none" }}
+            {mockData.map((row) => (
+              <TableRow key={row.email}>
+                <TableCell
+                  component={Link}
+                  to={`/student/${row.email}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  {row.first_name}
+                </TableCell>
+                <TableCell
+                  component={Link}
+                  to={`/student/${row.email}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  {row.last_name}
+                </TableCell>
+                <TableCell
+                  component={Link}
+                  to={`/student/${row.email}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  {row.email}
+                </TableCell>
+                <TableCell
+                  component={Link}
+                  to={`/student/${row.email}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  {row.existing_magic_skills.skill}
+                  {/* {existing_skill.skill}, Level:
+                  {existing_skill.level} */}
+                </TableCell>
+                <TableCell
+                  component={Link}
+                  to={`/student/${row.email}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => props.onStudentClick(row)}
+                >
+                  {row.desired_magic_skills}
+                </TableCell>
+                <TableCell>
+                  <button
+                    className="action_button"
+                    onClick={(e) => handleEdit(row, e)}
+                  >
+                    <Link to="/edit_student" style={{ color: "black" }}>
+                      <EditIcon />
+                    </Link>
+                  </button>
+                  <button
+                    className="action_button"
+                    id="delete_button"
+                    onClick={(e) => handleDelete(row, e)}
+                  >
+                    <DeleteIcon />
+                  </button>
+                  <button
+                    className="action_button"
                     onClick={() => props.onStudentClick(row)}
                   >
-                    {row.first_name}
-                  </TableCell>
-                  <TableCell
-                    component={Link}
-                    to={`/student/${row.email}`}
-                    style={{ textDecoration: "none" }}
-                    onClick={() => props.onStudentClick(row)}
-                  >
-                    {row.last_name}
-                  </TableCell>
-                  <TableCell
-                    component={Link}
-                    to={`/student/${row.email}`}
-                    style={{ textDecoration: "none" }}
-                    onClick={() => props.onStudentClick(row)}
-                  >
-                    {row.email}
-                  </TableCell>
-                  <TableCell
-                    component={Link}
-                    to={`/student/${row.email}`}
-                    style={{ textDecoration: "none" }}
-                    onClick={() => props.onStudentClick(row)}
-                  >
-                    {existing_skill.skill}, Level:
-                    {existing_skill.level}
-                  </TableCell>
-                  <TableCell
-                    component={Link}
-                    to={`/student/${row.email}`}
-                    style={{ textDecoration: "none" }}
-                    onClick={() => props.onStudentClick(row)}
-                  >
-                    {row.desired_magic_skills}
-                  </TableCell>
-                  <TableCell>
-                    <button
-                      className="action_button"
-                      onClick={(e) => handleEdit(row, e)}
+                    <Link
+                      to={`/student/${row.email}`}
+                      style={{ color: "black" }}
                     >
-                      <Link to="/edit_student" style={{ color: "black" }}>
-                        <EditIcon />
-                      </Link>
-                    </button>
-                    <button
-                      className="action_button"
-                      id="delete_button"
-                      onClick={(e) => handleDelete(row, e)}
-                    >
-                      <DeleteIcon />
-                    </button>
-                    <button
-                      className="action_button"
-                      onClick={() => props.onStudentClick(row)}
-                    >
-                      <Link
-                        to={`/student/${row.email}`}
-                        style={{ color: "black" }}
+                      <VisibilityIcon />
+                    </Link>
+                  </button>
+                  <Modal
+                    isOpen={modalIsOpen}
+                    style={customStyles}
+                    contentLabel="Modal"
+                  >
+                    <h2>Are you sure you want to delete this student?</h2>
+                    <div style={buttonDivStyles}>
+                      <button
+                        style={buttonStyles}
+                        onClick={() => deleteStudent()}
                       >
-                        <VisibilityIcon />
-                      </Link>
-                    </button>
-                    <Modal
-                      isOpen={modalIsOpen}
-                      style={customStyles}
-                      contentLabel="Modal"
-                    >
-                      <h2>Are you sure you want to delete this student?</h2>
-                      <div style={buttonDivStyles}>
-                        <button
-                          style={buttonStyles}
-                          onClick={() => deleteStudent()}
-                        >
-                          <DoneIcon />
-                        </button>
-                        <button
-                          style={buttonStyles}
-                          onClick={() => closeModal()}
-                        >
-                          <ClearIcon />
-                        </button>
-                      </div>
-                    </Modal>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
+                        <DoneIcon />
+                      </button>
+                      <button style={buttonStyles} onClick={() => closeModal()}>
+                        <ClearIcon />
+                      </button>
+                    </div>
+                  </Modal>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

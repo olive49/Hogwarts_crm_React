@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { List } from "@material-ui/core";
 
 const PredefinedSkillItem = ({
   skill,
@@ -8,7 +7,6 @@ const PredefinedSkillItem = ({
   watch,
   addPredefined,
   mockStudent,
-  skillList,
   errors,
 }) => {
   const location = useLocation();
@@ -16,42 +14,33 @@ const PredefinedSkillItem = ({
   const predefinedSkill = watch(skill.skill);
 
   const [checked, setChecked] = useState(false);
+  const [level, setLevel] = useState("level");
 
   const skillLevelSelected = (e) => {
     const chosenSkill = e.target.id;
     const chosenSkillLevel = e.target.value;
+    setLevel(e.target.value);
     addPredefined(chosenSkill, chosenSkillLevel);
   };
 
   useEffect(() => {
-    console.log("mock", mockStudent);
-    console.log(skill);
     if (location.pathname !== "/add_student") {
       const getSkill = (item) => {
-        return item.skillName === skill.name;
+        if (item.skillName === skill.name) {
+          console.log(item.skillName, item.skillLevel);
+          setLevel(item.skillLevel);
+          return item.skillLevel;
+        }
       };
-
       if (mockStudent.existing_magic_skills.some(getSkill)) {
         setChecked(true);
       }
     }
-    //   debugger;
-    //   console.log(skillList.includes(mockStudent.existing_magic_skills.))
-    //   mockStudent.existing_magic_skills.forEach((eSkill) => {
-    //     skillList.forEach((skillItem) => {
-    //       if (eSkill.skillName === skillItem.name) {
-    //         console.log(eSkill.skillName);
-    // setChecked(true);
-    //       } else {
-    //         setChecked(false);
-    //       }
-    //     });
-    //   });
-    // }
-  });
+  }, []);
 
   const skillSelected = () => {
     setChecked(!checked);
+    setLevel("level");
   };
 
   const options = ["Level", 1, 2, 3, 4, 5];
@@ -67,7 +56,9 @@ const PredefinedSkillItem = ({
         name={skill.skill}
         ref={register}
         checked={checked}
-        onClick={() => skillSelected()}
+        onClick={() => {
+          skillSelected();
+        }}
       />
       <label htmlFor={skill.name} className="skills_label">
         {skill.name}
@@ -80,6 +71,22 @@ const PredefinedSkillItem = ({
               id={skill.name}
               name={skill.rating}
               ref={register}
+              defaultValue={level}
+              onChange={(e) => skillLevelSelected(e)}
+            >
+              {optionsMap}
+            </select>
+          </span>
+        )
+      ) : level == "level" ? (
+        predefinedSkill && (
+          <span>
+            <label htmlFor={skill.rating}></label>
+            <select
+              id={skill.name}
+              name={skill.rating}
+              ref={register}
+              value={level}
               onChange={(e) => skillLevelSelected(e)}
             >
               {optionsMap}
@@ -93,9 +100,8 @@ const PredefinedSkillItem = ({
             id={skill.name}
             name={skill.rating}
             ref={register}
-            defaultChecked={skill.rating}
-            defaultValue={skill.rating}
-            onChange={(e) => skillSelected(e)}
+            value={level}
+            onChange={(e) => skillLevelSelected(e)}
           >
             {optionsMap}
           </select>
