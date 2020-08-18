@@ -10,11 +10,11 @@ const FirstName = ({ register, errors, mockStudent }) => {
       <span className="add_student_span">First Name</span>
       <input
         type="text"
-        name="firstName"
+        name="first_name"
         className="input_style"
         ref={register({ required: true })}
         defaultValue={
-          location.pathname == "/edit_student" ? mockStudent.firstName : ""
+          location.pathname == "/edit_student" ? mockStudent.first_name : ""
         }
       />
       {errors.firstName && errors.firstName.type === "required" && (

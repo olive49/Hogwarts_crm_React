@@ -27,6 +27,10 @@ const EditStudent = ({
     onEditStudent(data, desired);
   };
 
+  useEffect(() => {
+    console.log(currentStudent);
+  });
+
   return (
     <div>
       <div className="add_student">
@@ -34,17 +38,17 @@ const EditStudent = ({
           <FirstName
             register={register}
             errors={errors}
-            mockStudent={mockStudent}
+            mockStudent={currentStudent}
           />
           <LastName
             register={register}
             errors={errors}
-            mockStudent={mockStudent}
+            mockStudent={currentStudent}
           />
           <Email
             register={register}
             errors={errors}
-            mockStudent={mockStudent}
+            mockStudent={currentStudent}
           />
           <div className="all_skills">
             <div className="predefined_skills">
@@ -54,9 +58,10 @@ const EditStudent = ({
                   <PredefinedSkillItem
                     key={`${skill.skill}`}
                     skill={skill}
+                    skillList={predefinedSkills}
                     register={register}
                     watch={watch}
-                    mockStudent={mockStudent}
+                    mockStudent={currentStudent}
                   />
                 ))}
               </ul>
@@ -69,7 +74,7 @@ const EditStudent = ({
                     key={`${skill.skill}`}
                     skill={skill}
                     register={register}
-                    mockStudent={mockStudent}
+                    mockStudent={currentStudent}
                     onAddDesired={(skill) => addDesiredSkills(skill)}
                   />
                 ))}

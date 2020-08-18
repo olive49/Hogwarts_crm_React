@@ -84,22 +84,22 @@ const mockData = [
     firstName: "Harry",
     lastName: "Potter",
     email: "harry@hogwarts.com",
-    predefinedSkills: { skillName: "Quidditch", skillLevel: 3 },
-    desiredSkills: "Potionmaking",
+    existing_magic_skills: [{ skillName: "Quidditch", skillLevel: 3 }],
+    desired_magic_skills: ["Potionmaking"],
   },
   {
     firstName: "Hermione",
     lastName: "Granger",
     email: "hermione@hogwarts.com",
-    predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
-    desiredSkills: "Quidditch",
+    existing_magic_skills: [{ skillName: "Potionmaking", skillLevel: 5 }],
+    desired_magic_skills: ["Quidditch", "Parseltongue"],
   },
   {
     firstName: "Ron",
     lastName: "Weasley",
     email: "ron@hogwarts.com",
-    predefinedSkills: { skillName: "Potionmaking", skillLevel: 5 },
-    desiredSkills: "Quidditch",
+    existing_magic_skills: [{ skillName: "Potionmaking", skillLevel: 5 }],
+    desired_magic_skills: ["Quidditch"],
   },
 ];
 const App = () => {
@@ -110,9 +110,10 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/students")
+      .get("/students")
       .then((response) => {
         const students_db = response.data;
+        console.log(students_db);
         setRows(students_db);
       })
       .catch((error) => {
@@ -126,10 +127,6 @@ const App = () => {
       setDesiredData(desired_data);
     });
   }, []);
-
-  useEffect(() => {
-    console.log(rows);
-  });
 
   const handleCurrentStudent = (student) => {
     setCurrentStudent(student);
@@ -198,7 +195,7 @@ const App = () => {
               onCurrentStudent={(student) => handleCurrentStudent(student)}
               onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
               onStudentClick={(student) => handleStudentClick(student)}
-              rows={rows}
+              rows={mockData}
               desiredData={desiredData}
             />
           </Route>

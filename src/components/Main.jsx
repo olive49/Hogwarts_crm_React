@@ -46,6 +46,30 @@ const buttonStyles = {
   backgroundColor: "white",
 };
 
+const mockData = [
+  {
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "harry@hogwarts.com",
+    existing_magic_skills: [{ skillName: "Quidditch", skillLevel: 3 }],
+    desired_magic_skills: ["Potionmaking"],
+  },
+  {
+    first_name: "Hermione",
+    last_name: "Granger",
+    email: "hermione@hogwarts.com",
+    existing_magic_skills: [{ skillName: "Potion Making", skillLevel: 5 }],
+    desired_magic_skills: ["Quidditch", "Parseltongue"],
+  },
+  {
+    first_name: "Ron",
+    last_name: "Weasley",
+    email: "ron@hogwarts.com",
+    existing_magic_skills: [{ skillName: "Potion Making", skillLevel: 5 }],
+    desired_magic_skills: ["Quidditch"],
+  },
+];
+
 const Main = (props) => {
   const { rows, desiredSkills, desiredData } = props;
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -63,8 +87,6 @@ const Main = (props) => {
       labelList.push(skill.Skill);
       dataList.push(skill.Count);
     });
-    console.log(labelList);
-    console.log(dataList);
     setChartData({
       labels: skillName,
       options: {
@@ -115,7 +137,7 @@ const Main = (props) => {
 
   return (
     <div>
-      {/* <TableContainer
+      <TableContainer
         className="student_table_container"
         style={{ backgroundColor: "white" }}
       >
@@ -128,7 +150,7 @@ const Main = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) =>
+            {mockData.map((row) =>
               row.existing_magic_skills.map((existing_skill) => (
                 <TableRow key={row.email}>
                   <TableCell
@@ -226,7 +248,7 @@ const Main = (props) => {
             )}
           </TableBody>
         </Table>
-      </TableContainer> */}
+      </TableContainer>
       <div
         style={{
           display: "flex",
