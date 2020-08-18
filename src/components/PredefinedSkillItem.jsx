@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { List } from "@material-ui/core";
 
 const PredefinedSkillItem = ({
   skill,
@@ -23,24 +24,34 @@ const PredefinedSkillItem = ({
   };
 
   useEffect(() => {
+    console.log("mock", mockStudent);
+    console.log(skill);
     if (location.pathname !== "/add_student") {
-      console.log(mockStudent);
-      console.log(skillList);
-      mockStudent.existing_magic_skills.forEach((eSkill) => {
-        skillList.forEach((skillItem) => {
-          if (eSkill.skillName === skillItem.name) {
-            console.log(eSkill.skillName);
-            setChecked(true);
-          } else {
-            setChecked(false);
-          }
-        });
-      });
+      const getSkill = (item) => {
+        return item.skillName === skill.name;
+      };
+
+      if (mockStudent.existing_magic_skills.some(getSkill)) {
+        setChecked(true);
+      }
     }
+    //   debugger;
+    //   console.log(skillList.includes(mockStudent.existing_magic_skills.))
+    //   mockStudent.existing_magic_skills.forEach((eSkill) => {
+    //     skillList.forEach((skillItem) => {
+    //       if (eSkill.skillName === skillItem.name) {
+    //         console.log(eSkill.skillName);
+    // setChecked(true);
+    //       } else {
+    //         setChecked(false);
+    //       }
+    //     });
+    //   });
+    // }
   });
 
-  const skillSelected = (e) => {
-    console.log(e);
+  const skillSelected = () => {
+    setChecked(!checked);
   };
 
   const options = ["Level", 1, 2, 3, 4, 5];
@@ -55,7 +66,8 @@ const PredefinedSkillItem = ({
         id={skill.name}
         name={skill.skill}
         ref={register}
-        defaultChecked={checked}
+        checked={checked}
+        onClick={() => skillSelected()}
       />
       <label htmlFor={skill.name} className="skills_label">
         {skill.name}

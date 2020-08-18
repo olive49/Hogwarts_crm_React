@@ -6,7 +6,7 @@ const Email = (props) => {
   const location = useLocation();
 
   return (
-    <div style={{ height: "6rem", marginTop: "1rem", marginBottom: "-0.8rem" }}>
+    <div style={{ marginTop: "1rem" }}>
       <span className="add_student_span input_span">Email</span>
       <input
         type="email"

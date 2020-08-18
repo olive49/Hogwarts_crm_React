@@ -29,7 +29,7 @@ const AdminLogin = () => {
         <input
           type="password"
           name="password"
-          className="admin_login_input"
+          className="input_style"
           ref={register({ required: true, minLength: 8 })}
         />
         {errors.password && errors.password.type === "required" && (

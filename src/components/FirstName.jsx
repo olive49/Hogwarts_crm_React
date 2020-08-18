@@ -6,7 +6,6 @@ const FirstName = ({ register, errors, mockStudent }) => {
 
   return (
     <div>
-      {" "}
       <span className="add_student_span">First Name</span>
       <input
         type="text"

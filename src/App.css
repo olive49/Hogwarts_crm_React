@@ -38,7 +38,7 @@ body {
 .admin_login,
 .add_student {
   width: 50%;
-  margin: 4rem auto;
+  margin-top: 1rem;
 }
 
 .admin_signup_form,
@@ -148,10 +148,9 @@ body {
 
 .input_style {
   display: block;
-  height: 3rem;
-  width: 40.3rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 0.5rem;
+  width: 30rem;
   border: 0;
   border-radius: 5px;
 }

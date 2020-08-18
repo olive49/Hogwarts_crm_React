@@ -51,48 +51,65 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
   };
 
   return (
-    <div className="add_student">
-      <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
-        <FirstName register={register} errors={errors} />
-        <LastName register={register} errors={errors} />
-        <Email register={register} errors={errors} />
-        <div className="all_skills">
-          <div className="predefined_skills">
-            <h3>Predefined Skills</h3>
-            <ul className="predefined_skills_ul">
-              {predefinedSkills.map((skill) => (
-                <PredefinedSkillItem
-                  key={`${skill.skill}_${skill.name}`}
-                  skill={skill}
-                  register={register}
-                  watch={watch}
-                  errors={errors}
-                  addPredefined={(skill, level) =>
-                    addPredefinedSkills(skill, level)
-                  }
-                />
-              ))}
-            </ul>
+    <div
+      style={{
+        marginTop: "1rem",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        className="add_student"
+        style={{
+          border: "2px solid grey",
+          borderRadius: "5px",
+          margin: "1rem;",
+        }}
+      >
+        <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
+          <div style={{ paddingLeft: "3.5rem" }}>
+            <FirstName register={register} errors={errors} />
+            <LastName register={register} errors={errors} />
+            <Email register={register} errors={errors} />
           </div>
-          <div className="desired_skills">
-            <h3>Desired Skills</h3>
-            <ul className="desired_skills_ul">
-              {desiredSkills.map((skill) => (
-                <DesiredSkillItem
-                  key={`${skill.skill}_${skill.name}}`}
-                  skill={skill}
-                  register={register}
-                  errors={errors}
-                  addDesired={(skill) => addDesiredSkills(skill)}
-                />
-              ))}
-            </ul>
+          <div className="all_skills">
+            <div className="predefined_skills">
+              <h3>Predefined Skills</h3>
+              <ul className="predefined_skills_ul">
+                {predefinedSkills.map((skill) => (
+                  <PredefinedSkillItem
+                    key={`${skill.skill}_${skill.name}`}
+                    skill={skill}
+                    register={register}
+                    watch={watch}
+                    errors={errors}
+                    addPredefined={(skill, level) =>
+                      addPredefinedSkills(skill, level)
+                    }
+                  />
+                ))}
+              </ul>
+            </div>
+            <div className="desired_skills">
+              <h3>Desired Skills</h3>
+              <ul className="desired_skills_ul">
+                {desiredSkills.map((skill) => (
+                  <DesiredSkillItem
+                    key={`${skill.skill}_${skill.name}}`}
+                    skill={skill}
+                    register={register}
+                    errors={errors}
+                    addDesired={(skill) => addDesiredSkills(skill)}
+                  />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <button className="add_student_button" type="submit">
-          Submit
-        </button>
-      </form>
+          <button className="add_student_button" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

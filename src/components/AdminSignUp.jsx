@@ -27,7 +27,7 @@ const AdminSignUp = () => {
         <input
           type="text"
           name="fullName"
-          className="admin_signup_input"
+          className="input_style"
           ref={register({ required: true })}
         />
         {errors.fullName && errors.fullName.type === "required" && (
@@ -38,7 +38,7 @@ const AdminSignUp = () => {
         <input
           type="password"
           name="password"
-          className="admin_signup_input"
+          className="input_style"
           ref={register({ required: true, minLength: 8 })}
         />
         {errors.password && errors.password.type === "required" && (
@@ -53,7 +53,7 @@ const AdminSignUp = () => {
         <input
           type="password"
           name="password_confirmed"
-          className="admin_signup_input"
+          className="input_style"
           ref={register({
             required: true,
             minLength: 8,

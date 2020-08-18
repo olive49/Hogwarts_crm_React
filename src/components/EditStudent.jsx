@@ -32,24 +32,31 @@ const EditStudent = ({
   });
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <div className="add_student">
         <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
-          <FirstName
-            register={register}
-            errors={errors}
-            mockStudent={currentStudent}
-          />
-          <LastName
-            register={register}
-            errors={errors}
-            mockStudent={currentStudent}
-          />
-          <Email
-            register={register}
-            errors={errors}
-            mockStudent={currentStudent}
-          />
+          <div style={{ marginLeft: "4rem" }}>
+            <FirstName
+              register={register}
+              errors={errors}
+              mockStudent={currentStudent}
+            />
+            <LastName
+              register={register}
+              errors={errors}
+              mockStudent={currentStudent}
+            />
+            <Email
+              register={register}
+              errors={errors}
+              mockStudent={currentStudent}
+            />
+          </div>
           <div className="all_skills">
             <div className="predefined_skills">
               <h3>Predefined Skills</h3>
