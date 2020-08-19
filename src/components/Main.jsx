@@ -108,7 +108,14 @@ const Main = (props) => {
         {
           label: labelList,
           data: dataList,
-          backgroundColor: ["pink", "red", "green", "blue", "yellow", "orange"],
+          backgroundColor: [
+            "#F3C01A",
+            "#265820",
+            "#440404",
+            "#0C304B",
+            "#0A0A0A",
+            "#A67B54",
+          ],
         },
       ],
     });

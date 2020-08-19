@@ -61,18 +61,22 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
       <div
         className="add_student"
         style={{
-          border: "2px solid grey",
-          borderRadius: "5px",
           margin: "1rem;",
         }}
       >
         <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
-          <div style={{ paddingLeft: "3.5rem" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FirstName register={register} errors={errors} />
             <LastName register={register} errors={errors} />
             <Email register={register} errors={errors} />
           </div>
-          <div className="all_skills">
+          <div className="all_skills" style={{ marginLeft: "2rem" }}>
             <div className="predefined_skills">
               <h3>Predefined Skills</h3>
               <ul className="predefined_skills_ul">
@@ -105,9 +109,15 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
               </ul>
             </div>
           </div>
-          <button className="add_student_button" type="submit">
-            Submit
-          </button>
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+            <button className="add_student_button" type="submit">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

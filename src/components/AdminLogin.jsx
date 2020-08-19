@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("/admin/login", {
+      .get("/admin/login", {
         admin_email: data.email,
         adminPassword: data.password,
       })
