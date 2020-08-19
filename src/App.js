@@ -120,22 +120,14 @@ const App = () => {
       .then((response) => {
         const students_db = response.data;
         setStudentsArray(students_db);
-        console.log(students_db);
+        students_db.map((student) => {
+          console.log(student["Existing_skills"]);
+        });
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://127.0.0.1:5000/students/desired_skills")
-  //     .then((response) => {
-  //       const desired_data = response.data;
-  //       console.log(desired_data);
-  //       setDesiredData(desired_data);
-  //     });
-  // }, []);
 
   const handleCurrentStudent = (student) => {
     setCurrentStudent(student);
