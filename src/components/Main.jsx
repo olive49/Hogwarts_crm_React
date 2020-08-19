@@ -55,7 +55,7 @@ const mockData = [
       { skillName: "Quidditch", skillLevel: 3 },
       { skillName: "Spells", skillLevel: 3 },
     ],
-    desired_magic_skills: ["Potionmaking"],
+    desired_magic_skills: ["Potion Making"],
   },
   {
     first_name: "Hermione",

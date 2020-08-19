@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const DesiredSkillItem = ({
@@ -7,8 +7,10 @@ const DesiredSkillItem = ({
   errors,
   addDesired,
   onAddDesired,
+  mockStudent,
 }) => {
   const location = useLocation();
+  const [checked, setChecked] = useState(false);
 
   const skillSelected = (e) => {
     const chosenSkill = e.target.id;
@@ -17,6 +19,21 @@ const DesiredSkillItem = ({
       : onAddDesired(chosenSkill);
   };
 
+  useEffect(() => {
+    if (location.pathname !== "/add_student") {
+      console.log(mockStudent.desired_magic_skills);
+      const getSkill = (item) => {
+        if (item === skill.name) {
+          console.log(item, item.skillLevel);
+          return item;
+        }
+      };
+      if (mockStudent.desired_magic_skills.some(getSkill)) {
+        setChecked(true);
+      }
+    }
+  }, []);
+
   return (
     <li>
       <input
@@ -24,6 +41,7 @@ const DesiredSkillItem = ({
         id={skill.name}
         name={skill.skill}
         ref={register}
+        checked={checked}
         onChange={(e) => skillSelected(e)}
       />
       <label htmlFor={skill.skill} className="skills_label">
