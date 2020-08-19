@@ -82,6 +82,8 @@ const Main = (props) => {
   const [student, setStudent] = useState(null);
   const [chartData, setChartData] = useState({});
 
+  const { studentsArray } = useContext(StudentContext);
+
   const skillName = desiredSkills.map((skill) => {
     return skill.name;
   });
@@ -112,6 +114,8 @@ const Main = (props) => {
 
   useEffect(() => {
     chart();
+    console.log(studentsArray);
+    console.log(studentsArray.map((student) => console.log(student["Email"])));
   }, []);
 
   Modal.setAppElement();
@@ -156,49 +160,47 @@ const Main = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mockData.map((row) => (
-              <TableRow key={row.email}>
+            {studentsArray.map((row) => (
+              <TableRow key={row["Email"]}>
                 <TableCell
                   component={Link}
-                  to={`/student/${row.email}`}
+                  to={`/student/${row["Email"]}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => props.onStudentClick(row)}
                 >
-                  {row.first_name}
+                  {row["First_name"]}
                 </TableCell>
                 <TableCell
                   component={Link}
-                  to={`/student/${row.email}`}
+                  to={`/student/${row["Email"]}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => props.onStudentClick(row)}
                 >
-                  {row.last_name}
+                  {row["Last_name"]}
                 </TableCell>
                 <TableCell
                   component={Link}
-                  to={`/student/${row.email}`}
+                  to={`/student/${row["Email"]}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => props.onStudentClick(row)}
                 >
-                  {row.email}
+                  {row["Email"]}
                 </TableCell>
                 <TableCell
                   component={Link}
-                  to={`/student/${row.email}`}
+                  to={`/student/${row["Email"]}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => props.onStudentClick(row)}
                 >
-                  {row.existing_magic_skills.skill}
-                  {/* {existing_skill.skill}, Level:
-                  {existing_skill.level} */}
+                  {row["Existing_skills"]}
                 </TableCell>
                 <TableCell
                   component={Link}
-                  to={`/student/${row.email}`}
+                  to={`/student/${row["Email"]}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => props.onStudentClick(row)}
                 >
-                  {row.desired_magic_skills}
+                  {row["Desired_skills"]}
                 </TableCell>
                 <TableCell>
                   <button

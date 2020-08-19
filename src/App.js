@@ -116,23 +116,26 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("/students")
+      .get("http://127.0.0.1:5000/students")
       .then((response) => {
         const students_db = response.data;
+        setStudentsArray(students_db);
         console.log(students_db);
-        setRows(students_db);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-  useEffect(() => {
-    axios.get("/students/desired_skills").then((response) => {
-      const desired_data = response.data;
-      setDesiredData(desired_data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:5000/students/desired_skills")
+  //     .then((response) => {
+  //       const desired_data = response.data;
+  //       console.log(desired_data);
+  //       setDesiredData(desired_data);
+  //     });
+  // }, []);
 
   const handleCurrentStudent = (student) => {
     setCurrentStudent(student);
@@ -157,10 +160,12 @@ const App = () => {
   };
 
   const handleDeleteStudent = (student) => {
-    const newRows = rows.filter((a) => a.email != student.email);
-    setRows(newRows);
+    console.log(student);
+    console.log(studentsArray);
+    const newRows = studentsArray.filter((a) => a["Email"] != student["Email"]);
+    setStudentsArray(newRows);
     axios
-      .delete(`http://127.0.0.1:5000/students/delete/${student.email}`)
+      .delete(`http://127.0.0.1:5000/students/delete/${student["Email"]}`)
       .then((response) => {
         console.log(response);
       })
@@ -201,7 +206,7 @@ const App = () => {
               onCurrentStudent={(student) => handleCurrentStudent(student)}
               onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
               onStudentClick={(student) => handleStudentClick(student)}
-              rows={mockData}
+              rows={rows}
               desiredData={desiredData}
             />
           </Route>
