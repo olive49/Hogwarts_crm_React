@@ -13,10 +13,13 @@ const DesiredSkillItem = ({
   const [checked, setChecked] = useState(false);
 
   const skillSelected = (e) => {
+    setChecked(!checked);
     const chosenSkill = e.target.id;
-    e.target.checked && location.pathname == "/add_student"
-      ? addDesired(chosenSkill)
-      : onAddDesired(chosenSkill);
+    if (e.target.checked && location.pathname == "/add_student") {
+      addDesired(chosenSkill);
+    } else if (e.target.checked && location.pathname == "/edit_student") {
+      onAddDesired(chosenSkill);
+    }
   };
 
   useEffect(() => {

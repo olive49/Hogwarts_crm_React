@@ -10,6 +10,8 @@ import EditStudent from "./components/EditStudent.jsx";
 import StudentData from "./components/StudentData.jsx";
 import StudentContext from "./StudentContext.js";
 import axios from "axios";
+import Print from "./utils.js";
+import { predefinedSkills2 } from "./mockData.json";
 
 const predefinedSkills = [
   {
@@ -114,7 +116,11 @@ const App = () => {
   const [rows, setRows] = useState([]);
   const [desiredData, setDesiredData] = useState([]);
 
+  const print = new Print();
+
   useEffect(() => {
+    print.changePrintStatus();
+    print.printSomething(predefinedSkills2);
     axios
       .get("http://127.0.0.1:5000/students")
       .then((response) => {
@@ -175,7 +181,7 @@ const App = () => {
   };
 
   return (
-    <StudentContext.Provider value={{ currentStudent, studentsArray }}>
+    <StudentContext.Provider value={{ currentStudent, studentsArray, print }}>
       <Router>
         <NavBar />
         <Switch>

@@ -5,10 +5,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const StudentData = ({ currentStudent, desiredSkills }) => {
-  const myContext = useContext(StudentContext);
-
-  console.log(myContext.currentStudent);
+const StudentData = ({ currentStudent }) => {
+  console.log(currentStudent);
 
   const useStyles = makeStyles({
     root: {
@@ -23,7 +21,8 @@ const StudentData = ({ currentStudent, desiredSkills }) => {
 
   const classes = useStyles();
 
-  const fullName = currentStudent.firstName + " " + currentStudent.lastName;
+  const fullName =
+    currentStudent["First_name"] + " " + currentStudent["Last_name"];
 
   return (
     <div style={{ width: "40%", margin: "4rem auto" }}>
@@ -33,14 +32,17 @@ const StudentData = ({ currentStudent, desiredSkills }) => {
             {fullName}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            {currentStudent.email}
+            {currentStudent["Email"]}
           </Typography>
           <Typography>Skills:</Typography>
           <Typography>
-            Predefined: {currentStudent.predefinedSkills.skillName} level:{" "}
-            {currentStudent.predefinedSkills.skillLevel}
+            {currentStudent["Existing_skills"].map((skill) => (
+              <div>
+                {skill["Skill"]} level: {skill["Level"]}
+              </div>
+            ))}
           </Typography>
-          <Typography>Desired: {currentStudent.desiredSkills}</Typography>
+          <Typography>Desired: {currentStudent["Desired_skills"]}</Typography>
         </CardContent>
       </Card>
     </div>
