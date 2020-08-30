@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
-import { Pie } from "react-chartjs-2";
+// import { Pie } from "react-chartjs-2";
 import axios from "axios";
 import DesiredSkillsChart from "./DesiredSkillsChart.jsx";
 
@@ -48,84 +48,15 @@ const buttonStyles = {
   backgroundColor: "white",
 };
 
-const mockData = [
-  {
-    first_name: "Harry",
-    last_name: "Potter",
-    email: "harry@hogwarts.com",
-    existing_magic_skills: [
-      { skillName: "Quidditch", skillLevel: 3 },
-      { skillName: "Spells", skillLevel: 3 },
-    ],
-    desired_magic_skills: ["Potion Making"],
-  },
-  {
-    first_name: "Hermione",
-    last_name: "Granger",
-    email: "hermione@hogwarts.com",
-    existing_magic_skills: [
-      { skillName: "Potion Making", skillLevel: 5 },
-      { skillName: "Spells", skillLevel: 5 },
-    ],
-    desired_magic_skills: ["Quidditch", "Parseltongue"],
-  },
-  {
-    first_name: "Ron",
-    last_name: "Weasley",
-    email: "ron@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Potion Making", skillLevel: 5 }],
-    desired_magic_skills: ["Quidditch"],
-  },
-];
-
 const Main = (props) => {
   const { desiredSkills } = props;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [student, setStudent] = useState(null);
+  // const [desiredData, setDesiredData] = useState([]);
 
   const { studentsArray } = useContext(StudentContext);
 
   Modal.setAppElement();
-
-  const studentInfo = (row) => {
-    // let keys = Object.keys(row);
-    // let values = Object.values(row);
-    // let entries = Object.entries(row);
-    // entries.map((entry) => {
-    //   console.log(entry[1]);
-    //   <TableCell component={Link} to={`/students/$row["Email"]`}>
-    //     (if (entry[0] === "Existing_skills"){console.log(entry)})
-    //     {entry[0] === "Existing_skills" ? (
-    //       entry["Existing_skills"].map((skill) => <div>{skill["Skill"]}</div>)
-    //     ) : (
-    //       <div>{entry[1]}</div>
-    //     )}
-    //   </TableCell>;
-    // });
-    // console.log(entries);
-    // for (const item in row) {
-    //   Object.entries(row).map((item) => (
-    //   (
-    //     <TableCell
-    //       component={Link}
-    //       to={`/student/${row["Email"]}`}
-    //       style={{ textDecoration: "none" }}
-    //       onClick={() => props.onStudentClick(row)}
-    //     >
-    //       {item[0] == "Existing_skills" ? (
-    //         item["Existing_skills"].map((skill) => (
-    //           <div>
-    //             {skill["Skill"]}, Level {skill["Level"]}
-    //           </div>
-    //         ))
-    //       ) : (
-    //         <div>{row}</div>
-    //       )}
-    //     </TableCell>
-    //   );
-    //   ));
-    // }
-  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -151,119 +82,143 @@ const Main = (props) => {
     openModal();
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:5000/students/desired_skills")
+  //     .then((response) => {
+  //       const desired_data = response.data;
+  //       console.log(desired_data);
+  //       desired_data.map((data) => {
+  //         console.log(data);
+  //       });
+  //       setDesiredData(desired_data);
+  //     });
+  // }, []);
+
   return (
     <div>
       <TableContainer
         className="student_table_container"
         style={{ backgroundColor: "white" }}
       >
-        <Table className="student_table">
-          <TableHead>
-            <TableRow>
-              {header.map((label) => (
-                <TableCell style={{ fontSize: "1rem" }}>{label}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {studentsArray.map((row) => (
-              <TableRow key={row["Email"]}>
-                <TableCell
-                  component={Link}
-                  to={`/student/${row["Email"]}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={() => props.onStudentClick(row)}
-                >
-                  {row["First_name"]}
-                </TableCell>
-                <TableCell
-                  component={Link}
-                  to={`/student/${row["Email"]}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={() => props.onStudentClick(row)}
-                >
-                  {row["Last_name"]}
-                </TableCell>
-                <TableCell
-                  component={Link}
-                  to={`/student/${row["Email"]}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={() => props.onStudentClick(row)}
-                >
-                  {row["Email"]}
-                </TableCell>
-                <TableCell
-                  component={Link}
-                  to={`/student/${row["Email"]}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={() => props.onStudentClick(row)}
-                >
-                  {row["Existing_skills"].map((skill) => (
-                    <div>
-                      {skill["Skill"]}, Level {skill["Level"]}
-                    </div>
-                  ))}
-                </TableCell>
-                <TableCell
-                  component={Link}
-                  to={`/student/${row["Email"]}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={() => props.onStudentClick(row)}
-                >
-                  {row["Desired_skills"]}
-                </TableCell>
-                <TableCell>
-                  <button
-                    className="action_button"
-                    onClick={(e) => handleEdit(row, e)}
-                  >
-                    <Link to="/edit_student" style={{ color: "black" }}>
-                      <EditIcon />
-                    </Link>
-                  </button>
-                  <button
-                    className="action_button"
-                    id="delete_button"
-                    onClick={(e) => handleDelete(row, e)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                  <button
-                    className="action_button"
+        {" "}
+        <td>
+          <Table className="student_table">
+            <TableHead>
+              <TableRow>
+                {header.map((label) => (
+                  <TableCell key={label} style={{ fontSize: "1rem" }}>
+                    {label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {studentsArray.map((row) => (
+                <TableRow key={row["Email"]}>
+                  <TableCell
+                    component={Link}
+                    to={`/student/${row["Email"]}`}
+                    style={{ textDecoration: "none" }}
                     onClick={() => props.onStudentClick(row)}
                   >
-                    <Link
-                      to={`/student/${row.email}`}
-                      style={{ color: "black" }}
-                    >
-                      <VisibilityIcon />
-                    </Link>
-                  </button>
-                  <Modal
-                    isOpen={modalIsOpen}
-                    style={customStyles}
-                    contentLabel="Modal"
+                    {row["First_name"]}
+                  </TableCell>
+                  <TableCell
+                    component={Link}
+                    to={`/student/${row["Email"]}`}
+                    style={{ textDecoration: "none" }}
+                    onClick={() => props.onStudentClick(row)}
                   >
-                    <h2>Are you sure you want to delete this student?</h2>
-                    <div style={buttonDivStyles}>
-                      <button
-                        style={buttonStyles}
-                        onClick={() => deleteStudent()}
+                    {row["Last_name"]}
+                  </TableCell>
+                  <TableCell
+                    component={Link}
+                    to={`/student/${row["Email"]}`}
+                    style={{ textDecoration: "none" }}
+                    onClick={() => props.onStudentClick(row)}
+                  >
+                    {row["Email"]}
+                  </TableCell>
+                  <TableCell
+                    component={Link}
+                    to={`/student/${row["Email"]}`}
+                    style={{ textDecoration: "none" }}
+                    onClick={() => props.onStudentClick(row)}
+                  >
+                    {row["Existing_skills"].map((skill) => (
+                      <div key={skill}>
+                        {skill["Skill"]}, Level {skill["Level"]}
+                      </div>
+                    ))}
+                  </TableCell>
+                  <TableCell
+                    component={Link}
+                    to={`/student/${row["Email"]}`}
+                    style={{ textDecoration: "none" }}
+                    onClick={() => props.onStudentClick(row)}
+                  >
+                    {row["Desired_skills"]}
+                  </TableCell>
+                  <TableCell>
+                    <button
+                      className="action_button"
+                      onClick={(e) => handleEdit(row, e)}
+                    >
+                      <Link to="/edit_student" style={{ color: "black" }}>
+                        <EditIcon />
+                      </Link>
+                    </button>
+                    <button
+                      className="action_button"
+                      id="delete_button"
+                      onClick={(e) => handleDelete(row, e)}
+                    >
+                      <DeleteIcon />
+                    </button>
+                    <button
+                      className="action_button"
+                      onClick={() => props.onStudentClick(row)}
+                    >
+                      <Link
+                        to={`/student/${row.email}`}
+                        style={{ color: "black" }}
                       >
-                        <DoneIcon />
-                      </button>
-                      <button style={buttonStyles} onClick={() => closeModal()}>
-                        <ClearIcon />
-                      </button>
-                    </div>
-                  </Modal>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                        <VisibilityIcon />
+                      </Link>
+                    </button>
+                    <Modal
+                      isOpen={modalIsOpen}
+                      style={customStyles}
+                      contentLabel="Modal"
+                    >
+                      <h2>Are you sure you want to delete this student?</h2>
+                      <div style={buttonDivStyles}>
+                        <button
+                          style={buttonStyles}
+                          onClick={() => deleteStudent()}
+                        >
+                          <DoneIcon />
+                        </button>
+                        <button
+                          style={buttonStyles}
+                          onClick={() => closeModal()}
+                        >
+                          <ClearIcon />
+                        </button>
+                      </div>
+                    </Modal>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </td>
       </TableContainer>
-      <DesiredSkillsChart desiredSkills={desiredSkills} />
+      <DesiredSkillsChart
+        // desiredData={desiredData}
+        desiredSkills={desiredSkills}
+      />
     </div>
   );
 };

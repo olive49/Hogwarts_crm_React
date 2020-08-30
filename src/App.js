@@ -11,105 +11,70 @@ import StudentData from "./components/StudentData.jsx";
 import StudentContext from "./StudentContext.js";
 import axios from "axios";
 import Print from "./utils.js";
-import { predefinedSkills2 } from "./mockData.json";
+// import { predefinedSkills2 } from "./mockData.json";
+import { predefinedSkills2 } from "./predefinedSkills.json";
+import { desiredSkills2 } from "./desiredSkills.json";
 
-const predefinedSkills = [
-  {
-    skill: "predefined_potionMaking",
-    name: "Potion Making",
-    rating: "predefined_potionMaking_rating",
-  },
-  {
-    skill: "predefined_spells",
-    name: "Spells",
-    rating: "predefined_spells_rating",
-  },
-  {
-    skill: "predefined_quidditch",
-    name: "Quidditch",
-    rating: "predefined_quidditch_rating",
-  },
-  {
-    skill: "predefined_apparate",
-    name: "Apparate",
-    rating: "predefined_apparate_rating",
-  },
-  {
-    skill: "predefined_metamorphmagi",
-    name: "Metamorphmagi",
-    rating: "predefined_metamorphmagi_rating",
-  },
-  {
-    skill: "predefined_parseltongue",
-    name: "Parseltongue",
-    rating: "predefined_parseltongue_rating",
-  },
-];
+// const predefinedSkills = [
+//   {
+//     skill: "predefined_potionMaking",
+//     name: "Potion Making",
+//     rating: "predefined_potionMaking_rating",
+//   },
+//   {
+//     skill: "predefined_spells",
+//     name: "Spells",
+//     rating: "predefined_spells_rating",
+//   },
+//   {
+//     skill: "predefined_quidditch",
+//     name: "Quidditch",
+//     rating: "predefined_quidditch_rating",
+//   },
+//   {
+//     skill: "predefined_apparate",
+//     name: "Apparate",
+//     rating: "predefined_apparate_rating",
+//   },
+//   {
+//     skill: "predefined_metamorphmagi",
+//     name: "Metamorphmagi",
+//     rating: "predefined_metamorphmagi_rating",
+//   },
+//   {
+//     skill: "predefined_parseltongue",
+//     name: "Parseltongue",
+//     rating: "predefined_parseltongue_rating",
+//   },
+// ];
 
-const desiredSkills = [
-  {
-    skill: "desired_potionMaking",
-    name: "Potion Making",
-  },
-  {
-    skill: "desired_spells",
-    name: "Spells",
-  },
-  {
-    skill: "desired_quidditch",
-    name: "Quidditch",
-  },
-  {
-    skill: "desired_apparate",
-    name: "Apparate",
-  },
-  {
-    skill: "desired_metamorphmagi",
-    name: "Metamorphmagi",
-  },
-  {
-    skill: "desired_parseltongue",
-    name: "Parseltongue",
-  },
-];
+// const desiredSkills = [
+//   {
+//     skill: "desired_potionMaking",
+//     name: "Potion Making",
+//   },
+//   {
+//     skill: "desired_spells",
+//     name: "Spells",
+//   },
+//   {
+//     skill: "desired_quidditch",
+//     name: "Quidditch",
+//   },
+//   {
+//     skill: "desired_apparate",
+//     name: "Apparate",
+//   },
+//   {
+//     skill: "desired_metamorphmagi",
+//     name: "Metamorphmagi",
+//   },
+//   {
+//     skill: "desired_parseltongue",
+//     name: "Parseltongue",
+//   },
+// ];
 
-const mockStudent = {
-  firstName: "Harry",
-  lastName: "Potter",
-  email: "harry@hogwarts.com",
-  predefinedSkills: [
-    { skillName: "Quidditch", skillLevel: 3 },
-    { skillName: "Spells", skillLevel: 3 },
-  ],
-  desiredSkills: ["Potionmaking"],
-};
-
-const mockData = [
-  {
-    firstName: "Harry",
-    lastName: "Potter",
-    email: "harry@hogwarts.com",
-    existing_magic_skills: [
-      { skillName: "Quidditch", skillLevel: 3 },
-      { skillName: "Spells", skillLevel: 3 },
-    ],
-    desired_magic_skills: ["Potionmaking"],
-  },
-  {
-    firstName: "Hermione",
-    lastName: "Granger",
-    email: "hermione@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Potionmaking", skillLevel: 5 }],
-    desired_magic_skills: ["Quidditch", "Parseltongue"],
-  },
-  {
-    firstName: "Ron",
-    lastName: "Weasley",
-    email: "ron@hogwarts.com",
-    existing_magic_skills: [{ skillName: "Potionmaking", skillLevel: 5 }],
-    desired_magic_skills: ["Quidditch"],
-  },
-];
 const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [studentsArray, setStudentsArray] = useState([]);
@@ -119,19 +84,32 @@ const App = () => {
   const print = new Print();
 
   useEffect(() => {
-    print.changePrintStatus();
-    print.printSomething(predefinedSkills2);
     axios
       .get("http://127.0.0.1:5000/students")
       .then((response) => {
         const students_db = response.data;
         setStudentsArray(students_db);
+        console.log(students_db);
         students_db.map((student) => {
+          console.log(student);
           console.log(student["Existing_skills"]);
         });
       })
       .catch((error) => {
         console.error(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/students/desired_skills")
+      .then((response) => {
+        const desired_data = response.data;
+        console.log(desired_data);
+        desired_data.map((data) => {
+          console.log(data);
+        });
+        setDesiredData(desired_data);
       });
   }, []);
 
@@ -181,7 +159,9 @@ const App = () => {
   };
 
   return (
-    <StudentContext.Provider value={{ currentStudent, studentsArray, print }}>
+    <StudentContext.Provider
+      value={{ currentStudent, studentsArray, print, desiredData }}
+    >
       <Router>
         <NavBar />
         <Switch>
@@ -193,14 +173,14 @@ const App = () => {
           </Route>
           <Route path="/add_student" exact>
             <AddStudent
-              predefinedSkills={predefinedSkills}
-              desiredSkills={desiredSkills}
+              predefinedSkills={predefinedSkills2}
+              desiredSkills={desiredSkills2}
               onAddStudent={(student) => addStudent(student)}
             />
           </Route>
           <Route path="/main" exact>
             <Main
-              desiredSkills={desiredSkills}
+              desiredSkills={desiredSkills2}
               onCurrentStudent={(student) => handleCurrentStudent(student)}
               onDeleteCurrentStudent={(student) => handleDeleteStudent(student)}
               onStudentClick={(student) => handleStudentClick(student)}
@@ -210,9 +190,9 @@ const App = () => {
           </Route>
           <Route path="/edit_student" exact>
             <EditStudent
-              predefinedSkills={predefinedSkills}
-              desiredSkills={desiredSkills}
-              mockStudent={mockStudent}
+              predefinedSkills={predefinedSkills2}
+              desiredSkills={desiredSkills2}
+              // mockStudent={mockStudent}
               onEditStudent={(data, desired) =>
                 handleEditStudent(data, desired)
               }
@@ -221,7 +201,7 @@ const App = () => {
           <Route path="/student/:email" exact>
             <StudentData
               currentStudent={currentStudent}
-              desiredSkills={desiredSkills}
+              desiredSkills={desiredSkills2}
             />
           </Route>
         </Switch>

@@ -4,7 +4,7 @@ import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import FirstName from "./FirstName.jsx";
 import LastName from "./LastName.jsx";
-import Email from "./Email.jsx";
+import Email from "./Email.tsx";
 import axios from "axios";
 
 const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
@@ -24,10 +24,13 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
     setDesired((desired) => desired.concat(skill));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (e, data) => {
+    e.target.preventDefault();
+    alert("hi");
+    console.log(data);
     onAddStudent(data);
     axios
-      .post("/students/add", {
+      .post("http://127.0.0.1:5000/students/add", {
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
@@ -61,10 +64,13 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
       <div
         className="add_student"
         style={{
-          margin: "1rem;",
+          margin: "1rem",
         }}
       >
-        <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="add_student_form"
+          onSubmit={(e) => handleSubmit(e, onSubmit)}
+        >
           <div
             style={{
               display: "flex",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Email from "./Email.jsx";
+import Email from "./Email.tsx";
 import axios from "axios";
 
 const AdminLogin = () => {

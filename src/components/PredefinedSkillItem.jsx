@@ -56,7 +56,7 @@ const PredefinedSkillItem = ({
         name={skill.skill}
         ref={register}
         checked={checked}
-        onClick={() => {
+        onChange={() => {
           skillSelected();
         }}
       />

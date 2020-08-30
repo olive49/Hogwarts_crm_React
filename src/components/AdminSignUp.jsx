@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Email from "./Email.jsx";
+import Email from "./Email.tsx";
 
 const AdminSignUp = () => {
   const { register, handleSubmit, errors, reset } = useForm();

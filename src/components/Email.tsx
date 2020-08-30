@@ -1,8 +1,14 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-const Email = (props) => {
-  const { register, errors, mockStudent } = props;
+type Props = {
+  register: Function;
+  errors: Error;
+  mockStudent: String;
+};
+
+const Email = ({ register, errors, mockStudent }: Props) => {
+  // const { register, errors, mockStudent } = props;
   const location = useLocation();
 
   return (
@@ -14,10 +20,10 @@ const Email = (props) => {
         className="input_style"
         ref={register({ required: true })}
         defaultValue={
-          location.pathname == "/edit_student" ? mockStudent.email : ""
+          location.pathname == "/edit_student" ? mockStudent["Email"] : ""
         }
       />
-      {errors.email && errors.email.type === "required" && (
+      {errors["Email"] && errors["Email"].type === "required" && (
         <span className="error_message">This field is required</span>
       )}
     </div>

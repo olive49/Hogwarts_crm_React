@@ -1,10 +1,5 @@
 {
-  "predefinedSkills2": [{ "hello": 1 }],
-  "desiredSkills": []
-}
-
-{
-  "predefinedSkills": [
+  "predefinedSkills2": [
     {
       "skill": "predefined_potionMaking",
       "name": "Potion Making",
@@ -34,33 +29,6 @@
       "skill": "predefined_parseltongue",
       "name": "Parseltongue",
       "rating": "predefined_parseltongue_rating"
-    }
-  ],
-
-  "desiredSkills": [
-    {
-      "skill": "desired_potionMaking",
-      "name": "Potion Making"
-    },
-    {
-      "skill": "desired_spells",
-      "name": "Spells"
-    },
-    {
-      "skill": "desired_quidditch",
-      "name": "Quidditch"
-    },
-    {
-      "skill": "desired_apparate",
-      "name": "Apparate"
-    },
-    {
-      "skill": "desired_metamorphmagi",
-      "name": "Metamorphmagi"
-    },
-    {
-      "skill": "desired_parseltongue",
-      "name": "Parseltongue"
     }
   ]
 }

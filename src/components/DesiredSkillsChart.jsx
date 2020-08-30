@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
+import StudentContext from "../StudentContext.js";
 import { Pie } from "react-chartjs-2";
 import axios from "axios";
 
 const DesiredSkillsChart = ({ desiredSkills }) => {
-  const [desiredData, setDesiredData] = useState([]);
+  // const [desiredData, setDesiredData] = useState([]);
   const [chartData, setChartData] = useState({});
 
   const skillName = desiredSkills.map((skill) => {
     return skill.name;
   });
+
+  const myContext = useContext(StudentContext);
+  const desiredData = myContext.desiredData;
+  console.log(desiredData);
 
   const chart = () => {
     const labelList = [];
@@ -40,16 +45,6 @@ const DesiredSkillsChart = ({ desiredSkills }) => {
       ],
     });
   };
-
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/students/desired_skills")
-      .then((response) => {
-        const desired_data = response.data;
-        console.log(desired_data);
-        setDesiredData(desired_data);
-      });
-  }, []);
 
   useEffect(() => {
     chart();

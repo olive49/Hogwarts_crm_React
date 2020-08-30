@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import FirstName from "./FirstName.jsx";
 import LastName from "./LastName.jsx";
-import Email from "./Email.jsx";
+import Email from "./Email.tsx";
 import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import StudentContext from "../StudentContext.js";
