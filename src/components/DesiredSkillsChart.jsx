@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import StudentContext from "../StudentContext.js";
 import { Pie } from "react-chartjs-2";
 import axios from "axios";
+import { type } from "os";
 
 const DesiredSkillsChart = ({ desiredSkills }) => {
   // const [desiredData, setDesiredData] = useState([]);
@@ -11,9 +12,9 @@ const DesiredSkillsChart = ({ desiredSkills }) => {
     return skill.name;
   });
 
-  const myContext = useContext(StudentContext);
-  const desiredData = myContext.desiredData;
+  const { desiredData } = useContext(StudentContext);
   console.log(desiredData);
+  console.log(typeof desiredData);
 
   const chart = () => {
     const labelList = [];
@@ -48,7 +49,7 @@ const DesiredSkillsChart = ({ desiredSkills }) => {
 
   useEffect(() => {
     chart();
-  }, [desiredData]);
+  }, []);
 
   return (
     <div

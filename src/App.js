@@ -11,69 +11,8 @@ import StudentData from "./components/StudentData.jsx";
 import StudentContext from "./StudentContext.js";
 import axios from "axios";
 import Print from "./utils.js";
-// import { predefinedSkills2 } from "./mockData.json";
 import { predefinedSkills2 } from "./predefinedSkills.json";
 import { desiredSkills2 } from "./desiredSkills.json";
-
-// const predefinedSkills = [
-//   {
-//     skill: "predefined_potionMaking",
-//     name: "Potion Making",
-//     rating: "predefined_potionMaking_rating",
-//   },
-//   {
-//     skill: "predefined_spells",
-//     name: "Spells",
-//     rating: "predefined_spells_rating",
-//   },
-//   {
-//     skill: "predefined_quidditch",
-//     name: "Quidditch",
-//     rating: "predefined_quidditch_rating",
-//   },
-//   {
-//     skill: "predefined_apparate",
-//     name: "Apparate",
-//     rating: "predefined_apparate_rating",
-//   },
-//   {
-//     skill: "predefined_metamorphmagi",
-//     name: "Metamorphmagi",
-//     rating: "predefined_metamorphmagi_rating",
-//   },
-//   {
-//     skill: "predefined_parseltongue",
-//     name: "Parseltongue",
-//     rating: "predefined_parseltongue_rating",
-//   },
-// ];
-
-// const desiredSkills = [
-//   {
-//     skill: "desired_potionMaking",
-//     name: "Potion Making",
-//   },
-//   {
-//     skill: "desired_spells",
-//     name: "Spells",
-//   },
-//   {
-//     skill: "desired_quidditch",
-//     name: "Quidditch",
-//   },
-//   {
-//     skill: "desired_apparate",
-//     name: "Apparate",
-//   },
-//   {
-//     skill: "desired_metamorphmagi",
-//     name: "Metamorphmagi",
-//   },
-//   {
-//     skill: "desired_parseltongue",
-//     name: "Parseltongue",
-//   },
-// ];
 
 const App = () => {
   const [currentStudent, setCurrentStudent] = useState(null);
@@ -82,35 +21,42 @@ const App = () => {
   const [desiredData, setDesiredData] = useState([]);
 
   const print = new Print();
+  const baseUrl = "http://127.0.0.1:5000/";
 
-  useEffect(() => {
+  const getStudents = () => {
     axios
-      .get("http://127.0.0.1:5000/students")
+      .get(`${baseUrl}students`)
       .then((response) => {
         const students_db = response.data;
-        setStudentsArray(students_db);
         console.log(students_db);
-        students_db.map((student) => {
-          console.log(student);
-          console.log(student["Existing_skills"]);
-        });
+        console.log(typeof students_db);
+        setStudentsArray(students_db);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   useEffect(() => {
+    getStudents();
+  }, []);
+
+  const getDesiredSkills = () => {
     axios
-      .get("http://127.0.0.1:5000/students/desired_skills")
+      .get(`${baseUrl}students/desired_skills`)
       .then((response) => {
         const desired_data = response.data;
         console.log(desired_data);
-        desired_data.map((data) => {
-          console.log(data);
-        });
+        console.log(typeof desired_data);
         setDesiredData(desired_data);
+      })
+      .catch((error) => {
+        console.error(error);
       });
+  };
+
+  useEffect(() => {
+    getDesiredSkills();
   }, []);
 
   const handleCurrentStudent = (student) => {
@@ -136,12 +82,10 @@ const App = () => {
   };
 
   const handleDeleteStudent = (student) => {
-    console.log(student);
-    console.log(studentsArray);
     const newRows = studentsArray.filter((a) => a["Email"] != student["Email"]);
     setStudentsArray(newRows);
     axios
-      .delete(`http://127.0.0.1:5000/students/delete/${student["Email"]}`)
+      .delete(`${baseUrl}students/delete/${student["Email"]}`)
       .then((response) => {
         console.log(response);
       })
@@ -160,7 +104,7 @@ const App = () => {
 
   return (
     <StudentContext.Provider
-      value={{ currentStudent, studentsArray, print, desiredData }}
+      value={{ currentStudent, studentsArray, print, desiredData, baseUrl }}
     >
       <Router>
         <NavBar />

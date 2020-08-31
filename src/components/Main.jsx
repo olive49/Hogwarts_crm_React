@@ -49,7 +49,7 @@ const buttonStyles = {
 };
 
 const Main = (props) => {
-  const { desiredSkills } = props;
+  const { desiredData, desiredSkills } = props;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [student, setStudent] = useState(null);
   // const [desiredData, setDesiredData] = useState([]);
@@ -216,7 +216,7 @@ const Main = (props) => {
         </td>
       </TableContainer>
       <DesiredSkillsChart
-        // desiredData={desiredData}
+        desiredData={desiredData}
         desiredSkills={desiredSkills}
       />
     </div>

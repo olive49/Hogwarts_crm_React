@@ -24,15 +24,13 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
     setDesired((desired) => desired.concat(skill));
   };
 
-  const onSubmit = (e, data) => {
-    e.target.preventDefault();
-    alert("hi");
+  const onSubmit = (data) => {
     console.log(data);
     onAddStudent(data);
     axios
       .post("http://127.0.0.1:5000/students/add", {
-        first_name: data.firstName,
-        last_name: data.lastName,
+        first_name: data.first_name,
+        last_name: data.last_name,
         email: data.email,
         existing_magic_skills: predefined,
         desired_magic_skills: desired,
@@ -67,10 +65,7 @@ const AddStudent = ({ predefinedSkills, desiredSkills, onAddStudent }) => {
           margin: "1rem",
         }}
       >
-        <form
-          className="add_student_form"
-          onSubmit={(e) => handleSubmit(e, onSubmit)}
-        >
+        <form className="add_student_form" onSubmit={handleSubmit(onSubmit)}>
           <div
             style={{
               display: "flex",
