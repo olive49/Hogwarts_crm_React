@@ -158,7 +158,9 @@ const Main = (props) => {
                     style={{ textDecoration: "none" }}
                     onClick={() => props.onStudentClick(row)}
                   >
-                    {row["Desired_skills"]}
+                    {row["Desired_skills"].map((skill) => (
+                      <div key={skill}>{skill},</div>
+                    ))}
                   </TableCell>
                   <TableCell>
                     <button

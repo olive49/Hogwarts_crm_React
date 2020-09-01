@@ -7,12 +7,7 @@ import PredefinedSkillItem from "./PredefinedSkillItem.jsx";
 import DesiredSkillItem from "./DesiredSkillItem.jsx";
 import StudentContext from "../StudentContext.js";
 
-const EditStudent = ({
-  predefinedSkills,
-  desiredSkills,
-  mockStudent,
-  onEditStudent,
-}) => {
+const EditStudent = ({ predefinedSkills, desiredSkills, onEditStudent }) => {
   const { currentStudent } = useContext(StudentContext);
   const [predefined, setPredefined] = useState([]);
   const [desired, setDesired] = useState([]);

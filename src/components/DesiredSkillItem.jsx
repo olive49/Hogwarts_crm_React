@@ -24,14 +24,20 @@ const DesiredSkillItem = ({
 
   useEffect(() => {
     if (location.pathname !== "/add_student") {
-      console.log(mockStudent.desired_magic_skills);
+      console.log(
+        mockStudent["Desired_skills"],
+        "selected student desired skills"
+      );
+      console.log(typeof mockStudent["Desired_skills"]);
       const getSkill = (item) => {
+        console.log(item);
+        console.log(typeof item);
         if (item === skill.name) {
           console.log(item, item.skillLevel);
           return item;
         }
       };
-      if (mockStudent.desired_magic_skills.some(getSkill)) {
+      if (mockStudent["Desired_skills"].some(getSkill)) {
         setChecked(true);
       }
     }

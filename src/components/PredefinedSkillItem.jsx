@@ -25,6 +25,11 @@ const PredefinedSkillItem = ({
 
   useEffect(() => {
     if (location.pathname !== "/add_student") {
+      console.log(
+        mockStudent["Existing_skills"],
+        "selected student existing skills"
+      );
+      console.log(typeof mockStudent["Existing_skills"]);
       const getSkill = (item) => {
         if (item.skillName === skill.name) {
           console.log(item.skillName, item.skillLevel);
@@ -32,7 +37,7 @@ const PredefinedSkillItem = ({
           return item.skillLevel;
         }
       };
-      if (mockStudent.existing_magic_skills.some(getSkill)) {
+      if (mockStudent["Existing_skills"].some(getSkill)) {
         setChecked(true);
       }
     }

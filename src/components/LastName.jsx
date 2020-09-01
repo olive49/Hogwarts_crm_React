@@ -14,7 +14,7 @@ const LastName = (props) => {
         className="input_style"
         ref={register({ required: true })}
         defaultValue={
-          location.pathname == "/edit_student" ? mockStudent.last_name : ""
+          location.pathname == "/edit_student" ? mockStudent["Last_name"] : ""
         }
       />
       {errors.lastName && errors.lastName.type === "required" && (
